@@ -1,10 +1,13 @@
 import React from 'react'
 import { auth, firebase } from '../../services/firebase'
 import { useHistory } from 'react-router-dom'
+import { FiLogIn } from "react-icons/fi";
+
 
 //Icons & Images
 import Logo from '../../assets/logo.jpeg';
 import { useAuth } from '../../hooks/useAuth';
+import GoogleIcon from '../../assets/icons/google-icon.svg';
 
 import { Container, Header, Content, Modal } from './styles';
 
@@ -28,16 +31,26 @@ const Login: React.FC = () => {
             <Header>
                     <img src={Logo} alt="Logo"/>
                 <div className="Login">
-                    <button onClick={handleSignIn} >Register</button>
+                    <button onClick={handleSignIn}>
+                        Cadastre-se
+                        <FiLogIn />
+                    </button>
                 </div>
                 
             </Header>
             
             <Content>
-                <h5>Content</h5>
                 <Modal>
-                    <span>Bem vindo</span>
-                    <button>Login com o Google</button>
+                    <strong>Bem vindo (a),</strong>
+                    
+                    <div className="LoginGoogle">
+                    <p>Entre com o Google para iniciar a sessão</p>
+                        <button onClick={handleSignIn}>
+                            <img src={GoogleIcon} alt="icone do Google" />
+                            Login com o Google
+                        </button>
+
+                    </div>
                 </Modal>
             </Content>
         </Container>
