@@ -31,7 +31,7 @@ export const Header = styled.header`
         margin: 10px 15px 0 0;
         border: 0;
         background: transparent;
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Oxygen', sans-serif;
         transition: color 0.2s;
         cursor: pointer;
 
@@ -69,7 +69,7 @@ export const Modal = styled.div`
     strong {
         font-size: 32px;
         font-weight: 700;
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Oxygen', sans-serif;
 
         padding-right: 40px;
 
@@ -92,7 +92,7 @@ export const Modal = styled.div`
 
         button {
             font-size: 14px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Oxygen', sans-serif;
             color: #1C1C1C;    
 
             height: 32px;

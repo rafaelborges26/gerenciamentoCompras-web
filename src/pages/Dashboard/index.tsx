@@ -3,15 +3,17 @@ import Logo from '../../assets/logo.jpeg';
 
 import { Container, Header } from './styles'
 
+import Button from '../../components/Button'
+
 const Dashboard: React.FC = () => {
     return (
         <Container>
             <Header>
                     <img src={Logo} alt="Logo"/>
                 <div className="Options">
-                    <button>Produto</button>
-                    <button>Cliente</button>
-                    <button>Pedido</button>
+                    <Button name="Pedido"/>
+                    <Button name="Produto"/>
+                    <Button name="Cliente"/>
                 </div>
             </Header>
         </Container>

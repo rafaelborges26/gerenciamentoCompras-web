@@ -10,7 +10,7 @@ export const Container = styled.div`
 export const Header = styled.header`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 40%;
     width: 100%;
     height: 20%;
 
@@ -18,5 +18,14 @@ export const Header = styled.header`
         height: 100px;
         width: 100px;
     }
+
+    .Options {
+        gap: 100px;
+        
+        button {
+            background: blue;;
+        }
+    }
+
 
 `
