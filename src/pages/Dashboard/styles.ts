@@ -20,12 +20,10 @@ export const Header = styled.header`
     }
 
     .Options {
-        gap: 100px;
-        
-        button {
-            background: blue;;
-        }
+        gap: 100px;        
     }
+`
 
+export const Content = styled.div`
 
 `

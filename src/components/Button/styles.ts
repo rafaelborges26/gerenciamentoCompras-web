@@ -1,7 +1,12 @@
 import styled from 'styled-components'
 
-export const Container = styled.button`
-    button {
-        font-size: 100px;
-    }
+export const ContainerButton = styled.button`
+    
+        font-size: 24px;
+        background: red;
+
+        > button {
+            gap: 10px;
+        } 
+    
 `

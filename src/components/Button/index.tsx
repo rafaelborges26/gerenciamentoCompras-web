@@ -1,19 +1,19 @@
-import  React, { ReactNode } from 'react';
+import  React, { ReactNode, ButtonHTMLAttributes } from 'react';
+import { ContainerButton } from './styles'
 
-type ButtonProps = {
-    children?: ReactNode;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     name: string;
 }
 
 const Button: React.FC<ButtonProps> = ({name, ...props}: ButtonProps) => {
     
     return (
-        <button 
+        <ContainerButton
          {...props}
          type="button"
         >
-        {name}
-        </button>
+        {name}        
+        </ContainerButton>
     )
 }
 
