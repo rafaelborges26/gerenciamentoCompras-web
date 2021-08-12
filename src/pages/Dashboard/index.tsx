@@ -1,4 +1,6 @@
 import React, {useState, FormEvent} from 'react'
+import { useAuth } from '../../hooks/useAuth';
+
 import Logo from '../../assets/logo.jpeg';
 
 import { Container, Header, Content } from './styles'

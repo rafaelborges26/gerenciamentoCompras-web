@@ -1,5 +1,5 @@
 import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState } from 'react';
-import { Container } from './styles'
+import { Container, Table } from './styles'
 
 import { database } from '../../services/firebase';
 import Input from '../Input';
@@ -11,9 +11,8 @@ interface formData {
     email: string;
     cel_number: string;
     adress: string;
+    created_date?: number;
 }
-
-
 
 const ModalClients: React.FC = () => {
 
@@ -21,7 +20,7 @@ const ModalClients: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [cel_number, setCel_number] = useState<string>('');
     const [adress, setAdress] = useState<string>('');
-    const [clients, setClients] = useState({})
+    const [clients, setClients] = useState<formData[]>([])
     const [listClients, setListClients] = useState(false)
     const [createClients, setCreateClients] = useState(true)
 
@@ -29,27 +28,26 @@ const ModalClients: React.FC = () => {
 
     const handleCreateUser = async (event: FormEvent) => {
 
-        console.log("entro")
         event.preventDefault()
    
+        //validations
+
+        if(name.trim() === '' || email.trim() === '' || cel_number.trim() === '' || adress.trim() === ''){
+            return;
+        }
+
         //Enviar dados
    
         const clientRef = database.ref('clients')
-        
-        console.log(
-            name,
-            cel_number
-        )
 
         const firebaseClient = await clientRef.push({
             name: name,
             email: email,
             cel_number: cel_number,
             adress: adress,
-            created_date: new Date()
+            created_date: new Date().getTime()
         })
-   
-        console.log(firebaseClient)
+
        }
    
        const handleShowClients = async () => {
@@ -58,19 +56,64 @@ const ModalClients: React.FC = () => {
         setCreateClients(false)
 
            //faz um select no banco buscando por esse key
-           const roomRef = await database.ref('clients').get(); 
+           const clientsRef = await database.ref('clients').get(); 
    
-           setClients(roomRef.val())
+           const clientsAll: formData = clientsRef.val()
+
+           const parsedClients = Object.entries(clientsAll).map(([key, value]) => {
+            return {
+                id: key,
+                name: value.name,
+                email: value.email,
+                cel_number: value.cel_number,
+                adress: value.adress,
+                created_date: value.created_date
+
+            }
+    })
+
+    setClients(parsedClients)
+
+           console.log(parsedClients)
+
+
    
        }
 
     return (
         <Container>
-            <h3>{name}</h3> 
+            <h3>Clientes</h3>
 
-            { listClients && (
-                <h6>List clients</h6>
-            )}
+            { listClients && 
+            (
+                <Table>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th><span>Nome</span></th>
+                            <th><span>E-mail</span></th>
+                            <th><span>Celular</span></th>
+                            <th><span>Endereço</span></th>
+                        </tr>
+                        </thead>
+                <tbody>
+                    {clients.map(client => (
+                        <tr>
+                        <>
+                            <td><p>{client.name}</p></td>
+                            <td><p>{client.email}</p></td>
+                            <td><p>{client.cel_number}</p></td>
+                            <td><p>{client.adress}</p></td>
+                        </>
+                        </tr>
+                    ) )}
+                    </tbody>
+                    </table>
+                </Table>
+                
+            )
+            
+            }
 
 
             { createClients && (

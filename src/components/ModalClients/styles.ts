@@ -20,3 +20,41 @@ export const Container = styled.div`
     }
     
 `
+
+export const Table = styled.table`
+    width: 100%;
+    height: 100%;
+
+    justify-content: center;
+
+    //display: flex;
+
+    margin-top: 20px;
+
+    border-top: 8px solid #cedee7;
+    border-bottom: 1px solid #ccc;
+
+    background: #fff;
+
+    span {
+        font-size: 18px;
+    }
+
+    p {
+            font-size: 16px;
+    }
+
+    .headerTable {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+
+    tr {
+        border-top: 3px solid #ccc;
+        
+    }
+
+
+`

@@ -5,18 +5,17 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
     name: string;
 }
 
-const Input: React.FC<InputProps> = ({name, type, placeholder}: InputProps) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(props => {
     
     return (
         <Container>
-            <label>{name}</label>
+            <label>{props.name}</label>
             <input 
-                type={type}
-                placeholder={placeholder} 
-                id={name}
+                {...props}
             />
         </Container>
     )
-}
+})
+
 
 export default Input
