@@ -1,5 +1,5 @@
 import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState } from 'react';
-import { Container, Table } from './styles'
+import { Container, TableCllient } from './styles'
 
 import { database } from '../../services/firebase';
 import Input from '../Input';
@@ -48,8 +48,16 @@ const ModalClients: React.FC = () => {
             created_date: new Date().getTime()
         })
 
+        alert("Cadastro criado com sucesso")
+
+        setName('');
+        setEmail('');
+        setCel_number('');
+        setAdress('');
+
+        
        }
-   
+
        const handleShowClients = async () => {
         
         setListClients(true)
@@ -73,11 +81,13 @@ const ModalClients: React.FC = () => {
     })
 
     setClients(parsedClients)
-
-           console.log(parsedClients)
-
-
    
+       }
+
+       const handleShowCreateClients = () => {
+        setListClients(false)
+        setCreateClients(true)
+
        }
 
     return (
@@ -86,7 +96,13 @@ const ModalClients: React.FC = () => {
 
             { listClients && 
             (
-                <Table>
+            <>
+                <div className="headerTable">
+                    <ButtonForm type="button" name="Criar Cliente" onClick={handleShowCreateClients} />
+                </div>
+            
+                <TableCllient>
+                    
                     <table>
                         <thead>
                         <tr>
@@ -109,7 +125,8 @@ const ModalClients: React.FC = () => {
                     ) )}
                     </tbody>
                     </table>
-                </Table>
+                </TableCllient>
+                </>
                 
             )
             

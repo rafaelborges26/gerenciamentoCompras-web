@@ -9,10 +9,9 @@ export const Container = styled.div`
 export const Header = styled.header`
     display: flex;
     flex-direction: row;
-    gap: 40%;
+    gap: 30%;
     width: 100%;
     height: 20%;
-
     background: green;
 
     img {
@@ -21,7 +20,12 @@ export const Header = styled.header`
     }
 
     .Options {
-        gap: 100px;        
+
+        button {
+            margin-right: 10px;
+            margin-top: 10px;
+            font-weight: 700;
+        }   
     }
 `
 

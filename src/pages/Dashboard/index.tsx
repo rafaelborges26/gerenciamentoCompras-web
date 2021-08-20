@@ -7,6 +7,7 @@ import { Container, Header, Content } from './styles'
 
 import Button from '../../components/Button'
 import ModalClients from '../../components/ModalClients';
+import ModalProducts from '../../components/ModalProducts';
 
 const Dashboard: React.FC = () => {
 
@@ -49,7 +50,9 @@ const Dashboard: React.FC = () => {
                     <h5>Pedido</h5> 
                     )
                 }
-                { isProduct && <h5>Product</h5> }
+                { isProduct && (
+                    <ModalProducts />
+                ) }
                 { isClient && (
                     <ModalClients />
                 )
