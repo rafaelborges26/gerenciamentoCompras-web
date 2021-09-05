@@ -9,6 +9,7 @@ body {
     color: #29292e;
 }
 
-body, input, button, textarea, label {
+body, input, button, textarea, label, select {
     font: 400 16px 'Roboto', sans-serif;
+    color: #000814;
 }

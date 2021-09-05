@@ -1,28 +1,22 @@
-import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState } from 'react';
-import { Container, TableCllient } from './styles'
+import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState, useCallback } from 'react';
+import { useProduct } from '../../hooks/useProduct';
+import { format } from 'date-fns'
 
 import { database } from '../../services/firebase';
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
-
-
-interface formData {
-    name: string;
-    description: string;
-    price: string;
-    created_date?: number;
-}
+import { Container, TableCllient } from './styles'
+import { useEffect } from 'react';
 
 const ModalProducts: React.FC = () => {
+
+    const { products, createProducts, getProducts } = useProduct();
 
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [price, setPrice] = useState<string>('');
-    const [products, setProducts] = useState<formData[]>([])
     const [listProducts, setListProducts] = useState(false)
-    const [createProducts, setCreateProducts] = useState(true)
-
-
+    const [createdProducts, setCreatedProducts] = useState(true)
 
     const handleCreateUser = async (event: FormEvent) => {
 
@@ -35,15 +29,10 @@ const ModalProducts: React.FC = () => {
         }
 
         //Enviar dados
-   
-        const clientRef = database.ref('products')
+        
+        const created_date = format(new Date(), 'dd/mm/yyyy');
 
-        const firebaseProduct = await clientRef.push({
-            name: name,
-            description: description,
-            price: price,
-            created_date: new Date().getTime()
-        })
+        await createProducts(name, description, price, created_date)
 
         alert("Cadastro criado com sucesso")
 
@@ -57,32 +46,21 @@ const ModalProducts: React.FC = () => {
        const handleShowProducts = async () => {
         
         setListProducts(true)
-        setCreateProducts(false)
-
-           //faz um select no banco buscando por esse key
-           const ProductsRef = await database.ref('products').get(); 
-   
-           const ProductsAll: formData = ProductsRef.val()
-
-           const parsedProducts = Object.entries(ProductsAll).map(([key, value]) => {
-            return {
-                id: key,
-                name: value.name,
-                description: value.description,
-                price: value.price,
-                created_date: value.created_date
-            }
-    })
-
-    setProducts(parsedProducts)
-   
+        setCreatedProducts(false)   
        }
 
        const handleShowCreateProducts = () => {
         setListProducts(false)
-        setCreateProducts(true)
+        setCreatedProducts(true)
 
        }
+
+
+    useEffect(() => {
+        getProducts()
+       // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[listProducts])
+
 
     return (
         <Container>
@@ -108,7 +86,7 @@ const ModalProducts: React.FC = () => {
                         </tr>
                         </thead>
                 <tbody>
-                    {products.map(product => (
+                    {products && products.map(product => (
                         <tr>
                         <>
                             <td><p>{product.name}</p></td>
@@ -127,7 +105,7 @@ const ModalProducts: React.FC = () => {
             
             }
 
-            { createProducts && (
+            { createdProducts && (
                 <form onSubmit={handleCreateUser}>
                         <Input 
                             type="text"

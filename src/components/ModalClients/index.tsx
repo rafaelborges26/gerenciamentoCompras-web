@@ -4,6 +4,7 @@ import { Container, TableCllient } from './styles'
 import { database } from '../../services/firebase';
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
+import { format } from 'date-fns';
 
 
 interface formData {
@@ -37,6 +38,8 @@ const ModalClients: React.FC = () => {
         }
 
         //Enviar dados
+
+        const formattedDate = format(new Date(), 'dd/mm/yyyy');
    
         const clientRef = database.ref('clients')
 
@@ -45,7 +48,7 @@ const ModalClients: React.FC = () => {
             email: email,
             cel_number: cel_number,
             adress: adress,
-            created_date: new Date().getTime()
+            created_date: formattedDate,
         })
 
         alert("Cadastro criado com sucesso")

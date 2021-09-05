@@ -1,4 +1,4 @@
-import React, {useState, FormEvent} from 'react'
+import React, {useState, FormEvent, useEffect} from 'react'
 import { useAuth } from '../../hooks/useAuth';
 
 import Logo from '../../assets/logo.jpeg';
@@ -8,8 +8,12 @@ import { Container, Header, Content } from './styles'
 import Button from '../../components/Button'
 import ModalClients from '../../components/ModalClients';
 import ModalProducts from '../../components/ModalProducts';
+import ModalOrders from '../../components/ModalOrder';
+import { useProduct } from '../../hooks/useProduct';
 
 const Dashboard: React.FC = () => {
+
+    const { getProducts } = useProduct();
 
     const [isOrder, setIsOrder] = useState(false);
     const [isProduct, setIsProduct] = useState(false);
@@ -33,7 +37,6 @@ const Dashboard: React.FC = () => {
         setIsClient(!isClient)
     }
 
-
     return (
         <Container>
             <Header>
@@ -47,7 +50,7 @@ const Dashboard: React.FC = () => {
 
             <Content>
                 { isOrder && (
-                    <h5>Pedido</h5> 
+                    <ModalOrders /> 
                     )
                 }
                 { isProduct && (
