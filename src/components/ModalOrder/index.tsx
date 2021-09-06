@@ -7,6 +7,7 @@ import Select from '../Select';
 import ButtonForm from '../ButtonForm';
 import { Container, TableCllient } from './styles'
 import { useProduct } from '../../hooks/useProduct';
+import { useClient } from '../../hooks/useClient';
 import { useEffect } from 'react';
 
 interface formData {
@@ -21,13 +22,12 @@ interface formData {
 const ModalOrders: React.FC = () => {
 
     const { products } = useProduct()
-
-    console.log("list" ,products)
+    const { clients } = useClient()
 
     const [price_total, setPrice_total] = useState<number>(0);
     const [type_payment, setType_payment] = useState<string>('');
     const [quantity_parcels, setQuantity_parcels] = useState<string>('');
-    const [client, setClient] = useState<string>('');
+    const [clientsList, setClientsList] = useState<string>('');
     const [productsList, setProductsList] = useState<string>('');
 
     const [Orders, setOrders] = useState<formData[]>([])
@@ -40,7 +40,7 @@ const ModalOrders: React.FC = () => {
    
         //validations
 
-        if(price_total === 0 || type_payment.trim() === '' || quantity_parcels.trim() === '' || client.trim() === '' || productsList.trim() === '' ){
+        if(price_total === 0 || type_payment.trim() === '' || quantity_parcels.trim() === '' || clientsList.trim() === '' || productsList.trim() === '' ){
             return;
         }
 
@@ -54,8 +54,8 @@ const ModalOrders: React.FC = () => {
             price_total,
             type_payment,
             quantity_parcels,
-            client,
             productsList,
+            clientsList,
             created_date: formattedDate
         })
 
@@ -63,22 +63,8 @@ const ModalOrders: React.FC = () => {
 
         setPrice_total(0);
         setType_payment('');
-        setQuantity_parcels('');
-        setClient('');
-        
+        setQuantity_parcels('');        
        }
-
-
-    const searchProduct = (productName: string) => {
-        console.log("entrou")
-        if(products) {
-            const searchedProduct = products.find( product => product.name.match(productName))
-
-            console.log(searchedProduct)
-            
-        }
-        
-    } 
 
     return (
         <Container>
@@ -89,50 +75,37 @@ const ModalOrders: React.FC = () => {
                         
                         <Select name="Produtos" id="products" placeholder="Selecione os produtos" multiple multiSelect >
                             { products?.map(product => (
-                                <option value={product.id}>{product.name}</option>
+                                <option key={product.id} value={product.id}>{product.name} </option>
                             ))
                                 
                             }
                         </Select>
 
-                        <Input 
-                            type="text"
-                            placeholder="20,00" 
-                            id="client"
-                            name="Cliente"
-                            onChange={event => setClient(event.target.value)}
-                            value={client}
-                        />
+                        <Select name="Cliente" id="clients" multiple multiSelect>
+                            { clients?.map(client => (
+                                <option key={client.id} value={client.id}>{client.name} </option>
+                            ) ) }
+                        </Select>
 
-                        <Input 
-                            type="text"
-                            placeholder="20,00" 
-                            id="parcels"
-                            name="Quantidade de parcelas"
-                            onChange={event => setQuantity_parcels(event.target.value)}
-                            value={client}
-                        />
+                        <Select name="Forma de pagamento" id="paymentType" multiSelect={false} >
+                            <option value="credit">Cartão de crédito</option>
+                            <option value="debit">Cartão de débito</option>
+                            <option value="money">Dinheiro</option>
+                            <option value="pix">Pix</option>
+                        </Select>
 
-                        <Select name="cars" id="cars" multiSelect={false}>
+
+                        <Select name="Parcelas" id="parcels" multiSelect={false}>
                             <option value="1">1x</option>
                             <option value="2">2x</option>
                             <option value="3">3x</option>
                             <option value="4">4x</option>
                         </Select>
 
-
-                        <Input 
-                            type="text"
-                            placeholder="20,00" 
-                            id="payment"
-                            name="Forma de pagamento"
-                            onChange={event => setType_payment(event.target.value)}
-                            value={type_payment}
-                        />
                         <div className="ButtonsOrders">
 
                         <ButtonForm type="submit" name="Fazer pedido" />
-                        <ButtonForm type="button" onClick={() => {}} name="Listar Produtos" />
+                        <ButtonForm type="button" onClick={() => {}} name="Listar Pedidos" />
 
                         </div>
                     </form>

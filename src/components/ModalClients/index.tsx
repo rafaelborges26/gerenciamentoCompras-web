@@ -1,29 +1,24 @@
 import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState } from 'react';
 import { Container, TableCllient } from './styles'
+import { useClient } from '../../hooks/useClient'
 
 import { database } from '../../services/firebase';
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
 import { format } from 'date-fns';
+import { useEffect } from 'react';
 
-
-interface formData {
-    name: string;
-    email: string;
-    cel_number: string;
-    adress: string;
-    created_date?: number;
-}
 
 const ModalClients: React.FC = () => {
+
+    const { clients, getClients, createClients } = useClient();
 
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [cel_number, setCel_number] = useState<string>('');
     const [adress, setAdress] = useState<string>('');
-    const [clients, setClients] = useState<formData[]>([])
     const [listClients, setListClients] = useState(false)
-    const [createClients, setCreateClients] = useState(true)
+    const [createdClients, setCreatedClients] = useState(true)
 
 
 
@@ -34,23 +29,16 @@ const ModalClients: React.FC = () => {
         //validations
 
         if(name.trim() === '' || email.trim() === '' || cel_number.trim() === '' || adress.trim() === ''){
+            alert("É Necessário preencher os campos")
             return;
         }
 
         //Enviar dados
 
-        const formattedDate = format(new Date(), 'dd/mm/yyyy');
-   
-        const clientRef = database.ref('clients')
+        const created_date = format(new Date(), 'dd/mm/yyyy');
 
-        const firebaseClient = await clientRef.push({
-            name: name,
-            email: email,
-            cel_number: cel_number,
-            adress: adress,
-            created_date: formattedDate,
-        })
-
+        await createClients(name, email, cel_number, adress, created_date)
+        
         alert("Cadastro criado com sucesso")
 
         setName('');
@@ -64,34 +52,20 @@ const ModalClients: React.FC = () => {
        const handleShowClients = async () => {
         
         setListClients(true)
-        setCreateClients(false)
-
-           //faz um select no banco buscando por esse key
-           const clientsRef = await database.ref('clients').get(); 
-   
-           const clientsAll: formData = clientsRef.val()
-
-           const parsedClients = Object.entries(clientsAll).map(([key, value]) => {
-            return {
-                id: key,
-                name: value.name,
-                email: value.email,
-                cel_number: value.cel_number,
-                adress: value.adress,
-                created_date: value.created_date
-
-            }
-    })
-
-    setClients(parsedClients)
+        setCreatedClients(false)
    
        }
 
        const handleShowCreateClients = () => {
         setListClients(false)
-        setCreateClients(true)
+        setCreatedClients(true)
 
        }
+
+       useEffect(() => {
+        getClients()
+       // eslint-disable-next-line react-hooks/exhaustive-deps
+       },[listClients])
 
     return (
         <Container>
@@ -116,8 +90,8 @@ const ModalClients: React.FC = () => {
                         </tr>
                         </thead>
                 <tbody>
-                    {clients.map(client => (
-                        <tr>
+                    {clients && clients.map(client => (
+                        <tr key={client.id} >
                         <>
                             <td><p>{client.name}</p></td>
                             <td><p>{client.email}</p></td>
@@ -136,7 +110,7 @@ const ModalClients: React.FC = () => {
             }
 
 
-            { createClients && (
+            { createdClients && (
                 <form onSubmit={handleCreateUser}>
                         <Input 
                             type="text"

@@ -12,7 +12,7 @@ export const Container = styled.div`
     form {
         padding: 20px 60px;
         
-        .ButtonsProducts {
+        .ButtonsOrders {
             display: flex;
             flex-direction: row;
             gap: 12px;

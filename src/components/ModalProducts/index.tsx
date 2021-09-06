@@ -25,6 +25,7 @@ const ModalProducts: React.FC = () => {
         //validations
 
         if(name.trim() === '' || description.trim() === '' || price.trim() === ''){
+            alert("É Necessário preencher os campos")
             return;
         }
 
