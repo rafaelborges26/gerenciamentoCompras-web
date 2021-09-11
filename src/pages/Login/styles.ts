@@ -14,7 +14,7 @@ export const Header = styled.header`
     justify-content: space-between;
     max-width: 100%;
     height: 100px;
-    background: #228B22;
+    background: #6E955F;
 
     img {
         height: 100px;

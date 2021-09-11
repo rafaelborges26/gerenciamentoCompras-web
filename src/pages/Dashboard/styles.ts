@@ -12,7 +12,7 @@ export const Header = styled.header`
     gap: 30%;
     width: 100%;
     height: 20%;
-    background: green;
+    background: #228B22;
 
     img {
         height: 100px;

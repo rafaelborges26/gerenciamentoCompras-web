@@ -9,7 +9,7 @@ type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
 const Input = React.forwardRef<HTMLSelectElement, SelectProps>(props => {
     
     return (
-        <Container multiselect={props.multiSelect} >
+        <Container multiSelect={props.multiSelect} >
             <label>{props.name}</label>
             <select 
                 {...props}

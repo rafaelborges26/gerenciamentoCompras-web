@@ -78,3 +78,48 @@ export const TableCllient = styled.table`
         text-align: left;
     }
 `
+
+export const ListProductsSelected = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    h4 {
+        opacity: 0.7;
+        font-weight: 500;
+    }
+    
+    margin: 20px;
+    
+`;
+
+export const EditProducts = styled.div`
+    display: flex;
+    //flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
+
+
+
+    svg {
+        align-items: center;
+        color: black;
+        cursor: pointer;
+        
+    }
+`;
+
+export const QuantityProducts = styled.div`
+    display: flex;
+    flex-direction: row;
+    
+    gap: 5px;
+    svg {
+        color: #228B22;
+        cursor: pointer;
+    }
+`
