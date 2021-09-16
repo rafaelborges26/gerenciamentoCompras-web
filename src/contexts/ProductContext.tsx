@@ -9,14 +9,15 @@ interface IProducts {
     id?: string;
     name: string;
     description: string;
-    price: string;
+    price: number;
     created_date: string;
+    quantity?: number;
 }
 
 type ProductContextType = {
     products: IProducts[] | undefined
     getProducts: () => Promise<void>
-    createProducts: (name: string, description: string, price: string, created_date: string) => Promise<void>
+    createProducts: (name: string, description: string, price: number, created_date: string) => Promise<void>
 }
 
 type ProductContextProps = {
@@ -48,7 +49,7 @@ export function ProductContextProvider(props: ProductContextProps) {
     }
 
 
-    const createProducts = useCallback( async(name: string, description: string, price: string, created_date: string) => {
+    const createProducts = useCallback( async(name: string, description: string, price: number, created_date: string) => {
         const productRef = database.ref('products')
 
     await productRef.push({

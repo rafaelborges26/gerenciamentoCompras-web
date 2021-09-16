@@ -7,7 +7,7 @@ export const ClientContext = createContext({} as ClientContextType )
 
 
 interface IClients {
-    id?: string;
+    id: string;
     name: string;
     email: string;
     cel_number: string;

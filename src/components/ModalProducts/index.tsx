@@ -33,13 +33,13 @@ const ModalProducts: React.FC = () => {
         
         const created_date = format(new Date(), 'dd/mm/yyyy');
 
-        await createProducts(name, description, price, created_date)
+        await createProducts(name, description, Number(price), created_date)
 
         alert("Cadastro criado com sucesso")
 
         setName('');
         setDescription('');
-        setPrice('');
+        //setPrice(0);
 
         
        }
@@ -126,7 +126,7 @@ const ModalProducts: React.FC = () => {
                          />
 
                         <Input 
-                            type="text"
+                            type="number"
                             placeholder="20,00" 
                             id="price"
                             name="Preço"

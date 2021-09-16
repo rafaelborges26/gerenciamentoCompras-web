@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 interface PropsSelect {
-    multiSelect: boolean
+    multiselect: boolean
 }
 
 export const Container = styled.div<PropsSelect>`
     width: 80%;
-    height: ${props => props.multiSelect ? '130px' : '100px' };
+    height: ${props => props.multiselect ? '130px' : '100px' };
     display: flex;
     flex-direction: column;
 
@@ -18,7 +18,7 @@ export const Container = styled.div<PropsSelect>`
     select {
         width: 430px;
         
-        height: ${props => props.multiSelect ? '80px' : '40px'} ;
+        height: ${props => props.multiselect ? '80px' : '40px'} ;
         border-radius: 6px;
         padding: 10px 20px;
         border: 1px solid #8FBC8F;

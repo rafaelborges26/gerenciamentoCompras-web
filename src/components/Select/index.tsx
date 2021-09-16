@@ -3,13 +3,13 @@ import { Container } from './styles';
 
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
     name: string;
-    multiSelect: boolean;
+    multiselect: boolean;
 }
 
 const Input = React.forwardRef<HTMLSelectElement, SelectProps>(props => {
     
     return (
-        <Container multiSelect={props.multiSelect} >
+        <Container multiselect={props.multiselect} >
             <label>{props.name}</label>
             <select 
                 {...props}

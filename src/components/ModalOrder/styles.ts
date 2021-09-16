@@ -92,9 +92,28 @@ export const ListProductsSelected = styled.div`
     
 `;
 
+export const ValueTotal = styled.div`
+    display: flex;
+    
+    align-items: center;
+    justify-content: end;
+    gap: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+
+    span {
+        font-size: 16px;
+    }
+
+    h5 {
+        font-size: 20px;
+        color: #fc7825;
+    }
+    
+`;
+
 export const EditProducts = styled.div`
     display: flex;
-    //flex-direction: column;
     gap: 10px;
     align-items: flex-end;
     justify-content: space-between;

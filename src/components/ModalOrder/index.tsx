@@ -6,10 +6,12 @@ import { database } from '../../services/firebase';
 import Input from '../Input';
 import Select from '../Select';
 import ButtonForm from '../ButtonForm';
-import { Container, TableCllient, ListProductsSelected, EditProducts, QuantityProducts } from './styles'
+import { Container, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts } from './styles'
 import { useProduct } from '../../hooks/useProduct';
 import { useClient } from '../../hooks/useClient';
 import { useEffect } from 'react';
+import { useMemo } from 'react';
+import formatReal from '../../utils/formatReal';
 
 interface formData {
     price_total: number;
@@ -23,13 +25,14 @@ interface formData {
 
 interface IProductsList {
     id?: string;
-    name: string;
-    description: string;
-    price: string;
-    created_date: string;
+    name?: string;
+    description?: string;
+    price?: number;
+    created_date?: string;
+    quantity?: number;
 }
 
-interface IProducts {
+interface IProductSelected {
     id: string;
     name: string;
 }
@@ -41,25 +44,52 @@ const ModalOrders: React.FC = () => {
 
     const [price_total, setPrice_total] = useState<number>(0);
     const [type_payment, setType_payment] = useState<string>('');
-    const [quantity_parcels, setQuantity_parcels] = useState<string>('');
-    const [clientsList, setClientsList] = useState<string>('');
+    const [quantity_parcels, setQuantity_parcels] = useState<number>(1);
+    const [clientList, setclientList] = useState<string>('');
     const [productsList, setProductsList] = useState<IProductsList[]>([]);
-    const [productSelected, setProductSelected] = useState<IProducts>();
+    const [productSelected, setProductSelected] = useState<IProductSelected>();
 
 
     const [Orders, setOrders] = useState<formData[]>([])
     const [listOrders, setListOrders] = useState(false)
     const [createOrders, setCreateOrders] = useState(true)
 
-    console.log(productsList)
+    const setInitialValues = () => {
+        clients && clients[0].id && setclientList(clients[0].id) 
+    
+        setType_payment('credit')
+
+        setQuantity_parcels(1)
+
+    }
+
+    const priceTotal = () => {
+        let sumPrime = 0
+
+        const allPrice = productsList.map((product => product.price && product.quantity && product.price * product.quantity ))
+        
+        allPrice.forEach(function (value) {
+            if(value){
+            sumPrime += value
+            }
+          })
+
+          setPrice_total(sumPrime)
+    }
 
     const handleCreateOrder = async (event: FormEvent) => {
 
         event.preventDefault()
    
+        console.log(type_payment)
+        console.log(clientList)
+        console.log(quantity_parcels)
+        
         //validations
-
-        if(price_total === 0 || type_payment.trim() === '' || quantity_parcels.trim() === '' || clientsList.trim() === ''){
+        
+        //ver preço
+        if(price_total === 0 || type_payment.trim() === '' || clientList.trim() === '' || productsList.length === 0) {
+            alert("É necessário preencher os campos")
             return;
         }
 
@@ -73,16 +103,20 @@ const ModalOrders: React.FC = () => {
             price_total,
             type_payment,
             quantity_parcels,
-            productsList,
-            clientsList,
+            products: productsList,
+            client: clientList,
             created_date: formattedDate
         })
 
         alert("Pedido realizado com sucesso");
 
+        //back values default
         setPrice_total(0);
-        setType_payment('');
-        setQuantity_parcels('');        
+        setType_payment('credit');
+        setQuantity_parcels(1);   
+        setProductsList([])      
+
+        //redirect listagem de pedidos
        }
 
     const handleAddProduct = () => {
@@ -90,12 +124,67 @@ const ModalOrders: React.FC = () => {
         if(productSelected) {
             const productFound = products?.find(product => product.id === productSelected.id)
 
-            if(productFound){   
-                setProductsList([...productsList, productFound])                
+        const productAdd = {
+            ...productFound,
+            quantity: 1
+        }
+
+            if(productAdd){   
+                setProductsList([...productsList, productAdd])                
             }
         }
         
     }
+
+    const handleIncrementProduct = (id: string) => {
+        const ProductFound = productsList.find((product) => product.id === id);
+    
+        const allProducts = productsList.filter((item) => item.id !== id);
+    
+        if (ProductFound?.quantity) {
+
+            
+            ProductFound.quantity += 1;
+        }
+    
+        if (allProducts && ProductFound) {
+            allProducts.push(ProductFound);
+        }
+    
+        setProductsList(allProducts);
+      };
+
+      const handleDecrementProduct = (id: string) => {
+        const ProductFound = productsList.find((product) => product.id === id);
+    
+        const allProducts = productsList.filter((item) => item.id !== id);
+    
+        // se for pra zero
+    if (ProductFound?.quantity === 1) {
+        setProductsList(allProducts);
+        return;
+      }
+
+        if (ProductFound?.quantity) {
+
+            ProductFound.quantity -= 1;
+        }
+    
+        if (allProducts && ProductFound) {
+            allProducts.push(ProductFound);
+        }
+    
+        setProductsList(allProducts);
+      }
+
+      useEffect(() => {
+        setInitialValues()
+      },[])
+
+      useEffect(() => {
+        priceTotal()
+      },[productsList])
+
 
     return (
         <Container>
@@ -109,7 +198,7 @@ const ModalOrders: React.FC = () => {
                             id="products" 
                             placeholder="Selecione os produtos" 
                             multiple 
-                            multiSelect={true}
+                            multiselect
                             onChange={event =>  setProductSelected({id: event.target.value, name: event.target.value})}
                         >
                             { products?.map(product => (
@@ -127,10 +216,10 @@ const ModalOrders: React.FC = () => {
                                     <h4>{products.name}</h4>
                                     <QuantityProducts>
                                     <FiMinusCircle
-                                        onClick={() => console.log("mais")}
+                                        onClick={() => products.id && handleDecrementProduct(products.id)}
                                     />
-                                1
-                                    <FiPlusCircle onClick={() => console.log("menos")} />
+                                {products.quantity}
+                                    <FiPlusCircle onClick={() => products.id && handleIncrementProduct(products.id)} />
                                     </QuantityProducts>
                                 </EditProducts>
                              )}
@@ -142,8 +231,8 @@ const ModalOrders: React.FC = () => {
                         <Select 
                             name="Cliente" 
                             id="clients" 
-                            multiSelect={false}
-                            onChange={event => setClientsList(event.target.value)}
+                            multiselect={false}
+                            onChange={event => setclientList(event.target.value)}
 
                         >
                             { clients?.map(client => (
@@ -154,8 +243,9 @@ const ModalOrders: React.FC = () => {
                         <Select 
                             name="Forma de pagamento" 
                             id="paymentType" 
-                            multiSelect={false} 
+                            multiselect={false} 
                             onChange={event => setType_payment(event.target.value)} 
+                            value={type_payment}
                         >
                             <option value="credit">Cartão de crédito</option>
                             <option value="debit">Cartão de débito</option>
@@ -166,14 +256,21 @@ const ModalOrders: React.FC = () => {
 
                         <Select 
                             name="Parcelas"
-                            id="parcels" multiSelect={false}
-                            onChange={event => setQuantity_parcels(event.target.value)}
+                            id="parcels" multiselect={false}
+                            onChange={event => setQuantity_parcels(Number(event.target.value))}
                         >
                             <option value="1">1x</option>
                             <option value="2">2x</option>
                             <option value="3">3x</option>
                             <option value="4">4x</option>
                         </Select>
+                        
+                        <ValueTotal>
+                            <span>Valor total:</span>
+                            <h5>{formatReal(price_total)}</h5>
+                            
+                        </ValueTotal>
+
 
                         <div className="ButtonsOrders">
 
