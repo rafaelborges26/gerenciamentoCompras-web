@@ -1,12 +1,10 @@
-import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState } from 'react';
-import { Container, TableCllient } from './styles'
+import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState, useEffect } from 'react';
 import { useClient } from '../../hooks/useClient'
+import { format } from 'date-fns';
 
-import { database } from '../../services/firebase';
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
-import { format } from 'date-fns';
-import { useEffect } from 'react';
+import { Container, TableCllient } from './styles'
 
 
 const ModalClients: React.FC = () => {
@@ -49,17 +47,9 @@ const ModalClients: React.FC = () => {
         
        }
 
-       const handleShowClients = async () => {
-        
-        setListClients(true)
-        setCreatedClients(false)
-   
-       }
-
-       const handleShowCreateClients = () => {
-        setListClients(false)
-        setCreatedClients(true)
-
+       const handleShowListOrCreated = () => {
+        setListClients(!listClients)
+        setCreatedClients(!createdClients)
        }
 
        useEffect(() => {
@@ -75,7 +65,7 @@ const ModalClients: React.FC = () => {
             (
             <>
                 <div className="headerTable">
-                    <ButtonForm type="button" name="Criar Cliente" onClick={handleShowCreateClients} />
+                    <ButtonForm type="button" name="Criar Cliente" onClick={handleShowListOrCreated} colorBackground="green" />
                 </div>
             
                 <TableCllient>
@@ -148,8 +138,8 @@ const ModalClients: React.FC = () => {
 
                         <div className="ButtonsClient">
 
-                        <ButtonForm type="submit" name="Criar Cliente" />
-                        <ButtonForm type="button" onClick={handleShowClients} name="Listar clientes" />
+                        <ButtonForm type="submit" name="Criar Cliente" colorBackground="green"/>
+                        <ButtonForm type="button" onClick={handleShowListOrCreated} name="Listar clientes" colorBackground="green" />
 
                         </div>
                     </form>

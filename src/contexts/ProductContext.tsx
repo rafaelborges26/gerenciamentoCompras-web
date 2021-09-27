@@ -45,7 +45,7 @@ export function ProductContextProvider(props: ProductContextProps) {
 
     setProducts(parsedProducts)
    
-        console.log(parsedProducts)
+        //console.log(parsedProducts)
     }
 
 

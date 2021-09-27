@@ -32,7 +32,7 @@ const Login: React.FC = () => {
                     <img src={Logo} alt="Logo"/>
                 <div className="Login">
                     <button onClick={handleSignIn}>
-                        Cadastre-se
+                        Entre
                         <FiLogIn />
                     </button>
                 </div>

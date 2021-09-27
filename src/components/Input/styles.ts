@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+interface Iinput {
+    hide?: boolean;
+}
+
+
+export const Container = styled.div<Iinput>`
     width: 80%;
     height: 100px;
     display: flex;
     flex-direction: column;
+
+    display: ${props => props.hide && 'none'};
 
     label {
         font-size: 14px;

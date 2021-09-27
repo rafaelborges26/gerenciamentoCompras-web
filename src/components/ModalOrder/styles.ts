@@ -8,7 +8,7 @@ export const Container = styled.div`
 
     align-items: center;
     justify-content: center;
-
+    
     form {
         padding: 20px 60px;
         
@@ -64,7 +64,16 @@ export const TableCllient = styled.table`
     td {
         padding: 15px;
         text-align: left;
+        
+        gap: 10px;
 
+        svg + svg {
+            margin-left: 12px;
+        }
+
+        svg {
+            cursor: pointer;
+        }
 
         @media (max-width: 660px) {
             padding: 5px;
@@ -77,6 +86,8 @@ export const TableCllient = styled.table`
         padding: 15px;
         text-align: left;
     }
+
+
 `
 
 export const ListProductsSelected = styled.div`

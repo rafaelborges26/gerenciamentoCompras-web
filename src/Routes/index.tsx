@@ -5,12 +5,13 @@ import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 import { ProductContextProvider } from '../contexts/ProductContext';
 import { ClientContextProvider } from '../contexts/ClientContext';
-
+import { OrderContextProvider } from '../contexts/OrderContext';
 
 
 const Routes = () => {
     return (
         <AuthContextProvider>
+            <OrderContextProvider>
         <ProductContextProvider>
             <ClientContextProvider>
             <Switch>
@@ -19,6 +20,7 @@ const Routes = () => {
             </Switch>
             </ClientContextProvider>
         </ProductContextProvider>
+        </OrderContextProvider>
         </AuthContextProvider>
     )
 }

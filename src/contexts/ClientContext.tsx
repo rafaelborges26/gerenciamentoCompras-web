@@ -33,7 +33,8 @@ export function ClientContextProvider(props: ClientContextProps) {
         
         const clientsRef = await database.ref('clients').get(); 
    
-           const clientsAll: IClients = clientsRef.val()
+        if(clientsRef) {
+            const clientsAll: IClients = clientsRef.val()
 
            const parsedClients = Object.entries(clientsAll).map(([key, value]) => {
             return {
@@ -43,14 +44,16 @@ export function ClientContextProvider(props: ClientContextProps) {
                 cel_number: value.cel_number,
                 adress: value.adress,
                 created_date: value.created_date
-
             }
     })
 
     setClients(parsedClients)
-
-        console.log(parsedClients)
+        }  
     }
+
+    useEffect(() => {
+        getClients();
+    },[])
 
 
     const createClients = useCallback( async(name: string, email: string, cel_number: string, adress: string, created_date: string) => {
@@ -67,10 +70,6 @@ export function ClientContextProvider(props: ClientContextProps) {
 
         
     },[])
-
-    useEffect(() => {
-        getClients();
-    },[createClients])
 
     return (
         <ClientContext.Provider value={{ clients, getClients, createClients }}>

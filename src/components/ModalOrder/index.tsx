@@ -1,17 +1,16 @@
-import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState, useCallback } from 'react';
-import { format } from 'date-fns'
-import { FiPlusCircle, FiMinusCircle, FiTrash2 } from 'react-icons/fi';
+import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState, useCallback, useMemo, useEffect } from 'react';
+import { FiPlusCircle, FiMinusCircle, FiTrash2, FiEdit, FiExternalLink } from 'react-icons/fi';
+import { useProduct } from '../../hooks/useProduct';
+import { useClient } from '../../hooks/useClient';
+import { useOrder } from '../../hooks/useOrder';
+import formatReal from '../../utils/formatReal';
 
-import { database } from '../../services/firebase';
 import Input from '../Input';
 import Select from '../Select';
 import ButtonForm from '../ButtonForm';
+import ViewOrderDetailed from '../ViewOrderDetailed'
 import { Container, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts } from './styles'
-import { useProduct } from '../../hooks/useProduct';
-import { useClient } from '../../hooks/useClient';
-import { useEffect } from 'react';
-import { useMemo } from 'react';
-import formatReal from '../../utils/formatReal';
+
 
 interface formData {
     price_total: number;
@@ -40,7 +39,8 @@ interface IProductSelected {
 const ModalOrders: React.FC = () => {
 
     const { products } = useProduct()
-    const { clients } = useClient()
+    const { clients, getClients } = useClient()
+    const { createOrders, orders, getOrders, getParcels } = useOrder()
 
     const [price_total, setPrice_total] = useState<number>(0);
     const [type_payment, setType_payment] = useState<string>('');
@@ -49,10 +49,21 @@ const ModalOrders: React.FC = () => {
     const [productsList, setProductsList] = useState<IProductsList[]>([]);
     const [productSelected, setProductSelected] = useState<IProductSelected>();
 
+    const [parcelDue1, setParcelDue1] = useState('');
+    const [parcelDue2, setParcelDue2] = useState('');
+    const [parcelDue3, setParcelDue3] = useState('');
+    const [parcelDue4, setParcelDue4] = useState('');
 
-    const [Orders, setOrders] = useState<formData[]>([])
-    const [listOrders, setListOrders] = useState(false)
-    const [createOrders, setCreateOrders] = useState(true)
+    const [isListOrders, setIsListOrders] = useState(false)
+    const [isCreateOrders, setIsCreateOrders] = useState(true)
+    const [viewOrderDetailed, setViewOrderDetailed] = useState(false)
+    const [orderIdSelected, setOrderIdSelected] = useState('')
+
+    console.log("orders",orders)
+
+    if(clients) {
+       console.log("clientId", clients[0].id)
+    }
 
     const setInitialValues = () => {
         clients && clients[0].id && setclientList(clients[0].id) 
@@ -80,10 +91,6 @@ const ModalOrders: React.FC = () => {
     const handleCreateOrder = async (event: FormEvent) => {
 
         event.preventDefault()
-   
-        console.log(type_payment)
-        console.log(clientList)
-        console.log(quantity_parcels)
         
         //validations
         
@@ -95,19 +102,8 @@ const ModalOrders: React.FC = () => {
 
         //Enviar dados
         
-        const formattedDate = format(new Date(), 'dd/mm/yyyy');
-
-        const orderRef = database.ref('orders')
-
-        const firebaseOrder = await orderRef.push({
-            price_total,
-            type_payment,
-            quantity_parcels,
-            products: productsList,
-            client: clientList,
-            created_date: formattedDate
-        })
-
+        await createOrders(price_total, type_payment, quantity_parcels, productsList, clientList, parcelDue1, parcelDue2, parcelDue3, parcelDue4 )
+        
         alert("Pedido realizado com sucesso");
 
         //back values default
@@ -115,6 +111,11 @@ const ModalOrders: React.FC = () => {
         setType_payment('credit');
         setQuantity_parcels(1);   
         setProductsList([])      
+
+        setParcelDue1('')
+        setParcelDue2('')
+        setParcelDue3('')
+        setParcelDue4('')
 
         //redirect listagem de pedidos
        }
@@ -177,6 +178,44 @@ const ModalOrders: React.FC = () => {
         setProductsList(allProducts);
       }
 
+      const handleShowListOrCreated = () => {
+        
+        if(!isListOrders){
+            getOrders();
+            getParcels()
+        }
+
+        setIsListOrders(!isListOrders)
+        setIsCreateOrders(!isCreateOrders)
+        setViewOrderDetailed(false)
+       }
+
+       const handleSelectOrderId = (idOrder: string) => {
+            setViewOrderDetailed(true)
+             setOrderIdSelected(idOrder)
+       }
+
+       const clientName = (id: string) => {
+        const client = clients?.find(client => client.id === id)
+        return client?.name || '';
+       }
+
+       const typePaymentFormat = (typePayment: string) => {
+        
+        switch (typePayment) {
+            case 'credit':
+                return 'Crédito';
+            case 'debit':
+                return 'Débito'
+            case 'pix':
+                    return 'Pix'
+            case 'money':
+                    return 'Dinheiro'
+            default:
+                return 'Não definido'
+        }
+       }
+
       useEffect(() => {
         setInitialValues()
       },[])
@@ -190,7 +229,7 @@ const ModalOrders: React.FC = () => {
         <Container>
             <h3>Pedidos</h3>
 
-            { createOrders && (
+            { isCreateOrders && (
                 <form onSubmit={handleCreateOrder}>
                         
                         <Select 
@@ -207,7 +246,7 @@ const ModalOrders: React.FC = () => {
                                 
                             }
                         </Select>
-                            <ButtonForm type="button" name="Adicionar" onClick={() => handleAddProduct()} />
+                            <ButtonForm type="button" name="Adicionar" onClick={() => handleAddProduct()} colorBackground="green"/>
 
                         <ListProductsSelected>
 
@@ -258,13 +297,49 @@ const ModalOrders: React.FC = () => {
                             name="Parcelas"
                             id="parcels" multiselect={false}
                             onChange={event => setQuantity_parcels(Number(event.target.value))}
+                            value={quantity_parcels}
                         >
-                            <option value="1">1x</option>
-                            <option value="2">2x</option>
-                            <option value="3">3x</option>
-                            <option value="4">4x</option>
+                            <option value={1}>1x</option>
+                            <option value={2}>2x</option>
+                            <option value={3}>3x</option>
+                            <option value={4}>4x</option>
                         </Select>
                         
+                        <Input 
+                            name="Data de vencimento da 1º Parcela" 
+                            type="data" placeholder="01/01/2021" 
+                            hide={false} 
+                            onChange={event => setParcelDue1(event.target.value)} 
+                            value={parcelDue1} 
+                        />
+
+                        <Input 
+                            name="Data de vencimento da 2º Parcela" 
+                            type="data" 
+                            placeholder="01/01/2021" 
+                            hide={ quantity_parcels < 2 } 
+                            onChange={event => setParcelDue2(event.target.value)} 
+                            value={parcelDue2} 
+                        />
+
+                        <Input 
+                            name="Data de vencimento da 3º Parcela" 
+                            type="data" 
+                            placeholder="01/01/2021" 
+                            hide={ quantity_parcels < 3} 
+                            onChange={event => setParcelDue3(event.target.value)} 
+                            value={parcelDue3} 
+                        />
+                        
+                        <Input 
+                            name="Data de vencimento da 4º Parcela" 
+                            type="data" 
+                            placeholder="01/01/2021" 
+                            hide={ quantity_parcels !== 4 } 
+                            onChange={event => setParcelDue4(event.target.value)} 
+                            value={parcelDue4}
+                        />
+
                         <ValueTotal>
                             <span>Valor total:</span>
                             <h5>{formatReal(price_total)}</h5>
@@ -274,12 +349,56 @@ const ModalOrders: React.FC = () => {
 
                         <div className="ButtonsOrders">
 
-                        <ButtonForm type="submit" name="Fazer pedido" />
-                        <ButtonForm type="button" onClick={() => {}} name="Listar Pedidos" />
+                        <ButtonForm type="submit" name="Fazer pedido" colorBackground="green"/>
+                        <ButtonForm type="button" name="Listar Pedidos" onClick={handleShowListOrCreated} colorBackground="green"/>
 
                         </div>
                     </form>
+            )
+                                 
+            }
+
+            { isListOrders && (
+                <>
+                <div className="headerTable">
+                    <ButtonForm type="button" name="Fazer Pedido" onClick={handleShowListOrCreated} colorBackground="green" />
+                </div>
+            
+                <TableCllient>
+                        <thead>
+                        <tr key={"header"}>
+                            <th><span>Cliente</span></th>
+                            <th><span>Preço total</span></th>
+                            <th><span>Parcelas</span></th>
+                            <th><span>Tipo de pagamento</span></th>
+                            <th><span>Data da compra</span></th>
+                        </tr>
+                        </thead>
+                <tbody>
+                    {orders && orders.map(order => (
+                        <tr key={order.id} >
+                        <>
+                            <td><p>{clientName(order.client)}</p></td>
+                            <td><p>{formatReal(order.price_total)}</p></td>
+                            <td><p>{order.quantity_parcels}</p></td>
+                            <td><p>{typePaymentFormat(order.type_payment)}</p></td>
+                            <td><p>{order.created_date}</p></td>
+                            <td>
+                                <FiExternalLink size={20} color={'#29292e'} onClick={() => handleSelectOrderId(order.id)}/>
+                                <FiEdit size={20} color={'#29292e'}/>
+                                <FiTrash2 size={20} color={'#f94144'}/>
+                                
+                            </td>
+                        </>
+                        </tr>
+                    ) )}
+                    </tbody>
+                </TableCllient>
+                </>
+            
             ) }
+
+        <ViewOrderDetailed orderId={orderIdSelected} isOpen={viewOrderDetailed} onClose={() => setViewOrderDetailed(false)} />
 
         </Container>
     )

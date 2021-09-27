@@ -44,17 +44,11 @@ const ModalProducts: React.FC = () => {
         
        }
 
-       const handleShowProducts = async () => {
-        
-        setListProducts(true)
-        setCreatedProducts(false)   
+       const handleShowListOrCreated = () => {
+        setListProducts(!listProducts)
+        setCreatedProducts(!createdProducts)
        }
 
-       const handleShowCreateProducts = () => {
-        setListProducts(false)
-        setCreatedProducts(true)
-
-       }
 
 
     useEffect(() => {
@@ -72,7 +66,7 @@ const ModalProducts: React.FC = () => {
             (
             <>
                 <div className="headerTable">
-                    <ButtonForm type="button" name="Criar Produto" onClick={handleShowCreateProducts} />
+                    <ButtonForm type="button" name="Criar Produto" onClick={handleShowListOrCreated} colorBackground="green"/>
                 </div>
             
                 <TableCllient>
@@ -136,8 +130,8 @@ const ModalProducts: React.FC = () => {
 
                         <div className="ButtonsProducts">
 
-                        <ButtonForm type="submit" name="Criar Produto" />
-                        <ButtonForm type="button" onClick={handleShowProducts} name="Listar Produtos" />
+                        <ButtonForm type="submit" name="Criar Produto" colorBackground="green"/>
+                        <ButtonForm type="button" onClick={handleShowListOrCreated} name="Listar Produtos" colorBackground="green"/>
 
                         </div>
                     </form>
