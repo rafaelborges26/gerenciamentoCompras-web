@@ -1,11 +1,13 @@
 import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState, useCallback } from 'react';
+import { FiTrash2, FiEdit, FiExternalLink } from 'react-icons/fi';
+
 import { useProduct } from '../../hooks/useProduct';
 import { format } from 'date-fns'
 
 import { database } from '../../services/firebase';
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
-import { Container, TableCllient } from './styles'
+import { Container, TableContainer, TableCllient } from './styles'
 import { useEffect } from 'react';
 
 const ModalProducts: React.FC = () => {
@@ -68,7 +70,8 @@ const ModalProducts: React.FC = () => {
                 <div className="headerTable">
                     <ButtonForm type="button" name="Criar Produto" onClick={handleShowListOrCreated} colorBackground="green"/>
                 </div>
-            
+                
+                <TableContainer>
                 <TableCllient>
                     
                     <table>
@@ -88,12 +91,19 @@ const ModalProducts: React.FC = () => {
                             <td><p>{product.description}</p></td>
                             <td><p>{product.price}</p></td>
                             <td><p>{product.created_date}</p></td>
+                            <td>
+                                <FiExternalLink size={20} color={'#29292e'}/>
+                                <FiEdit size={20} color={'#29292e'}/>
+                                <FiTrash2 size={20} color={'#f94144'}/>
+                                
+                            </td>
                         </>
                         </tr>
                     ) )}
                     </tbody>
                     </table>
                 </TableCllient>
+                </TableContainer>
                 </>
                 
             )

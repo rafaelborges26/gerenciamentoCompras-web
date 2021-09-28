@@ -10,7 +10,7 @@ export const Container = styled.div`
     justify-content: center;
     
     form {
-        padding: 20px 60px;
+        padding: 20px 30px;
         
         .ButtonsOrders {
             display: flex;
@@ -27,9 +27,24 @@ export const Container = styled.div`
     
 `
 
-export const TableCllient = styled.table`
+export const TableContainer = styled.div`
+    height: 80%;
     width: 100%;
+     
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: #ccc;
+  }
+
+`
+
+export const TableCllient = styled.table`
     height: 100%;
+    width: 100%;
 
     justify-content: center;
 
@@ -67,23 +82,26 @@ export const TableCllient = styled.table`
         
         gap: 10px;
 
-        svg + svg {
-            margin-left: 12px;
-        }
-
         svg {
+            margin-left: 12px;
             cursor: pointer;
         }
 
         @media (max-width: 660px) {
             padding: 5px;
+            gap: 12px;
+
+            svg {
+                width: 15px;
+                height: 15px;
+            }
         }
     }
 
 
     th {
         height: 40px;
-        padding: 15px;
+        padding: 10px;
         text-align: left;
     }
 

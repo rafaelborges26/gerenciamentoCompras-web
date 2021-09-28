@@ -9,7 +9,7 @@ import Input from '../Input';
 import Select from '../Select';
 import ButtonForm from '../ButtonForm';
 import ViewOrderDetailed from '../ViewOrderDetailed'
-import { Container, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts } from './styles'
+import { Container, TableContainer, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts } from './styles'
 
 
 interface formData {
@@ -363,8 +363,9 @@ const ModalOrders: React.FC = () => {
                 <div className="headerTable">
                     <ButtonForm type="button" name="Fazer Pedido" onClick={handleShowListOrCreated} colorBackground="green" />
                 </div>
-            
-                <TableCllient>
+                
+                <TableContainer>
+                <TableCllient>    
                         <thead>
                         <tr key={"header"}>
                             <th><span>Cliente</span></th>
@@ -394,6 +395,7 @@ const ModalOrders: React.FC = () => {
                     ) )}
                     </tbody>
                 </TableCllient>
+                </TableContainer>
                 </>
             
             ) }

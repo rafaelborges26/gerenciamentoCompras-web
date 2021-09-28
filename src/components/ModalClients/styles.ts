@@ -29,6 +29,21 @@ export const Container = styled.div`
     
 `
 
+export const TableContainer = styled.div`
+    height: 80%;
+    width: 100%;
+     
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: #ccc;
+  }
+
+`
+
 export const TableCllient = styled.table`
     width: 100%;
     height: 100%;
@@ -65,12 +80,28 @@ export const TableCllient = styled.table`
     }
 
     td {
-        padding: 15px;
+        padding: 10px 5px 10px 5px;
         text-align: left;
 
+        gap: 10px;
+
+        svg {
+            margin-left: 12px;
+            cursor: pointer;
+
+            width: 20px;
+            height: 20px;
+        }
 
         @media (max-width: 660px) {
             padding: 5px;
+
+            gap: 12px;
+
+            svg {
+                width: 15px;
+                height: 15px;
+            }
         }
     }
 

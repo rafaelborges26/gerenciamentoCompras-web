@@ -1,10 +1,12 @@
 import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState, useEffect } from 'react';
+import { FiTrash2, FiEdit, FiExternalLink } from 'react-icons/fi';
+
 import { useClient } from '../../hooks/useClient'
 import { format } from 'date-fns';
 
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
-import { Container, TableCllient } from './styles'
+import { Container, TableContainer, TableCllient } from './styles'
 
 
 const ModalClients: React.FC = () => {
@@ -68,6 +70,7 @@ const ModalClients: React.FC = () => {
                     <ButtonForm type="button" name="Criar Cliente" onClick={handleShowListOrCreated} colorBackground="green" />
                 </div>
             
+                <TableContainer>
                 <TableCllient>
                     
                     <table>
@@ -87,12 +90,19 @@ const ModalClients: React.FC = () => {
                             <td><p>{client.email}</p></td>
                             <td><p>{client.cel_number}</p></td>
                             <td><p>{client.adress}</p></td>
+                            <td>
+                                <FiExternalLink size={20} color={'#29292e'}/>
+                                <FiEdit size={20} color={'#29292e'}/>
+                                <FiTrash2 size={20} color={'#f94144'}/>
+                                
+                            </td>
                         </>
                         </tr>
                     ) )}
                     </tbody>
                     </table>
                 </TableCllient>
+                </TableContainer>
                 </>
                 
             )

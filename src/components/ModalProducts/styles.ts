@@ -28,6 +28,21 @@ export const Container = styled.div`
     
 `
 
+export const TableContainer = styled.div`
+    height: 80%;
+    width: 100%;
+     
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: #ccc;
+  }
+
+`
+
 export const TableCllient = styled.table`
     width: 100%;
     height: 100%;
@@ -67,9 +82,22 @@ export const TableCllient = styled.table`
         padding: 15px;
         text-align: left;
 
+        gap: 10px;
+
+        svg {
+            margin-left: 12px;
+            cursor: pointer;
+        }
 
         @media (max-width: 660px) {
             padding: 5px;
+            gap: 12px;
+
+
+            svg {
+                width: 15px;
+                height: 15px;
+            }
         }
     }
 
