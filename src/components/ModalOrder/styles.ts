@@ -23,9 +23,14 @@ export const Container = styled.div`
         align-items: flex-end;
         justify-content: flex-end;
         width: 100%;
+        margin-left: 12px;
     }
     
 `
+
+export const EmptyList = styled.h2`
+    margin-top: 300px;
+`;
 
 export const TableContainer = styled.div`
     height: 80%;
@@ -45,6 +50,7 @@ export const TableContainer = styled.div`
 export const TableCllient = styled.table`
     height: 100%;
     width: 100%;
+    padding: 0 5px;
 
     justify-content: center;
 

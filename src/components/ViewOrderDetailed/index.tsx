@@ -61,8 +61,8 @@ interface IParcels {
             <Table>
                         <thead>
                         <tr key={"header"}>
-                            <th><span>Valor da parcela</span></th>
-                            <th><span>Vencimento das Parcelas</span></th>
+                            <th><span>Valor</span></th>
+                            <th><span>Vencimento</span></th>
                             <th><span>Pagamento</span></th>
                         </tr>
                         </thead>
@@ -73,7 +73,7 @@ interface IParcels {
                         <>
                             <td><p>{formatReal(parc.value)}</p></td>
                             <td><p>{parc.due_date}</p></td>
-                            <td><p>{parc.status_payment ? 'Pago' : (<Button title="pay" name="Realizou Pagamento" onClick={() => handlePayParcel(parc.id)} colorBackground="red" />)}</p></td>
+                            <td><p>{parc.status_payment ? 'Pago' : (<Button title="pagou" name="Realizou Pagamento" onClick={() => handlePayParcel(parc.id)} colorBackground="red" />)}</p></td>
                         </>
                         </tr>
                         )

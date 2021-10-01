@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 interface Iinput {
     hide?: boolean;
+    sizeWidth: string;
 }
 
 
 export const Container = styled.div<Iinput>`
-    width: 80%;
+    width: 60%;
     height: 100px;
     display: flex;
     flex-direction: column;
@@ -19,7 +20,7 @@ export const Container = styled.div<Iinput>`
     }
 
     input {
-        width: 430px;
+        width: ${props => props.sizeWidth === 'B' ? '430px' : '230px' };
         
         height: 40px;
         border-radius: 10px;
@@ -29,7 +30,7 @@ export const Container = styled.div<Iinput>`
         align-items: center;
 
         @media (max-width: 660px) {
-            width: 300px;
+            width: ${props => props.sizeWidth === 'B' ? '300px' : '200px' };
         }
 
     }

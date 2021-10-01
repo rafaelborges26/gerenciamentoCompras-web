@@ -9,7 +9,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
 
-    form {
+    > form {
         padding: 20px 60px;
         
         .ButtonsProducts {
@@ -108,3 +108,6 @@ export const TableCllient = styled.table`
         text-align: left;
     }
 `
+export const EmptyList = styled.h2`
+    margin-top: 300px;
+`;

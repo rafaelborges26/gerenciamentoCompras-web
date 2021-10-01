@@ -1,24 +1,29 @@
-import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState, useCallback } from 'react';
-import { FiTrash2, FiEdit, FiExternalLink } from 'react-icons/fi';
+import  React, { FormEvent, useState, useEffect } from 'react';
+import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 import { useProduct } from '../../hooks/useProduct';
 import { format } from 'date-fns'
+import formatReal from '../../utils/formatReal';
 
-import { database } from '../../services/firebase';
+import ModalUpdateProduct from '../ModalUpdateProduct';
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
-import { Container, TableContainer, TableCllient } from './styles'
-import { useEffect } from 'react';
+import { Container, TableContainer, TableCllient, EmptyList } from './styles'
 
 const ModalProducts: React.FC = () => {
 
-    const { products, createProducts, getProducts } = useProduct();
+    const { products, createProducts, getProducts, deleteProduct } = useProduct();
 
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [price, setPrice] = useState<string>('');
+    const [productIdSelected, setProductIdSelected] = useState('')
+
+
     const [listProducts, setListProducts] = useState(false)
     const [createdProducts, setCreatedProducts] = useState(true)
+    const [modalUpdateProduct, setModalUpdateProduct] = useState(false)
+
 
     const handleCreateUser = async (event: FormEvent) => {
 
@@ -41,7 +46,7 @@ const ModalProducts: React.FC = () => {
 
         setName('');
         setDescription('');
-        //setPrice(0);
+        setPrice('');
 
         
        }
@@ -51,12 +56,26 @@ const ModalProducts: React.FC = () => {
         setCreatedProducts(!createdProducts)
        }
 
+       const handleEditProduct = (idProduct: string) => {
+        setModalUpdateProduct(true)
+        setProductIdSelected(idProduct)
+       }
+       
+       const handleDeleteProduct = async (id: string) => {
+        // eslint-disable-next-line no-restricted-globals
+        if(confirm("Tem certeza que deseja excluir esse produto?")){
+         
+         await deleteProduct(id)
+
+         getProducts()
+        };
+    }
 
 
     useEffect(() => {
         getProducts()
        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[listProducts])
+    },[listProducts, modalUpdateProduct])
 
 
     return (
@@ -71,39 +90,43 @@ const ModalProducts: React.FC = () => {
                     <ButtonForm type="button" name="Criar Produto" onClick={handleShowListOrCreated} colorBackground="green"/>
                 </div>
                 
-                <TableContainer>
-                <TableCllient>
-                    
-                    <table>
-                        <thead>
-                        <tr>
-                            <th><span>Nome</span></th>
-                            <th><span>Descrição</span></th>
-                            <th><span>Preço</span></th>
-                            <th><span>Data de criação</span></th>
-                        </tr>
-                        </thead>
-                <tbody>
-                    {products && products.map(product => (
-                        <tr>
-                        <>
-                            <td><p>{product.name}</p></td>
-                            <td><p>{product.description}</p></td>
-                            <td><p>{product.price}</p></td>
-                            <td><p>{product.created_date}</p></td>
-                            <td>
-                                <FiExternalLink size={20} color={'#29292e'}/>
-                                <FiEdit size={20} color={'#29292e'}/>
-                                <FiTrash2 size={20} color={'#f94144'}/>
-                                
-                            </td>
-                        </>
-                        </tr>
-                    ) )}
-                    </tbody>
-                    </table>
-                </TableCllient>
-                </TableContainer>
+                { products ? (
+                    <TableContainer>
+                    <TableCllient>
+                        
+                        <table>
+                            <thead>
+                            <tr>
+                                <th><span>Nome</span></th>
+                                <th><span>Descrição</span></th>
+                                <th><span>Preço</span></th>
+                                <th><span>Data de criação</span></th>
+                            </tr>
+                            </thead>
+                    <tbody>
+                        {products && products.map(product => (
+                            <tr>
+                            <>
+                                <td><p>{product.name}</p></td>
+                                <td><p>{product.description}</p></td>
+                                <td><p>{formatReal(product.price)}</p></td>
+                                <td><p>{product.created_date}</p></td>
+                                <td>
+                                    <FiEdit size={20} color={'#29292e'} onClick={() => { product.id && handleEditProduct(product.id)}} />
+                                    <FiTrash2 size={20} color={'#f94144'} onClick={() => { product.id && handleDeleteProduct(product.id)}}/>
+                                    
+                                </td>
+                            </>
+                            </tr>
+                        ) )}
+                        </tbody>
+                        </table>
+                    </TableCllient>
+                    </TableContainer>
+                ) : (
+                    <EmptyList>Listagem de produtos vazia</EmptyList>
+                )
+                }
                 </>
                 
             )
@@ -117,6 +140,7 @@ const ModalProducts: React.FC = () => {
                             placeholder="Camisa do Santos" 
                             id="name" 
                             name="Nome"
+                            sizeWidth="B"
                             onChange={event => setName(event.target.value)}
                             value={name}
                         />
@@ -125,6 +149,7 @@ const ModalProducts: React.FC = () => {
                             placeholder="Camisa de time do Santos modelo 2020" 
                             id="description"
                             name="Descrição"
+                            sizeWidth="B"
                             onChange={event => setDescription(event.target.value)}
                             value={description}
                          />
@@ -134,6 +159,7 @@ const ModalProducts: React.FC = () => {
                             placeholder="20,00" 
                             id="price"
                             name="Preço"
+                            sizeWidth="B"
                             onChange={event => setPrice(event.target.value)}
                             value={price}
                         />
@@ -146,6 +172,8 @@ const ModalProducts: React.FC = () => {
                         </div>
                     </form>
             ) }
+
+        <ModalUpdateProduct productId={productIdSelected} isOpen={modalUpdateProduct} onClose={() => {setModalUpdateProduct(false)}} />
 
         </Container>
     )

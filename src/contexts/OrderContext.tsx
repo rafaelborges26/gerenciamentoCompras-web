@@ -42,6 +42,7 @@ type OrderContextType = {
     createOrders: (price_total: number, type_payment: string, quantity_parcels: number, products: IProductsList[], client: string, parcelDue1: string, parcelDue2: string, parcelDue3: string, parcelDue4: string) => Promise<void>
     getParcels: () => Promise<void>
     payParcel: (idParcel: string) => Promise<void>
+    deleteOrder: (idOrder: string) => Promise<void>
 }
 
 type OrderContextProps = {
@@ -58,27 +59,34 @@ export function OrderContextProvider(props: OrderContextProps) {
         
         const allOrders: IOrders = OrdersRef.val()
 
-           const parsedOrders = Object.entries(allOrders).map(([key, value]) => {
-            return {
-                id: key,
-                client: value.client,
-                price_total: value.price_total,
-                quantity_parcels: value.quantity_parcels,
-                type_payment: value.type_payment,
-                products: value.products,
-                created_date: value.created_date
-            }
-    })
+        if(allOrders){
+            const parsedOrders = Object.entries(allOrders).map(([key, value]) => {
+                return {
+                    id: key,
+                    client: value.client,
+                    price_total: value.price_total,
+                    quantity_parcels: value.quantity_parcels,
+                    type_payment: value.type_payment,
+                    products: value.products,
+                    created_date: value.created_date
+                }
+        })
+    
+        setOrders(parsedOrders)
+       
+        } else {
+            setOrders(undefined);
+        }
 
-    setOrders(parsedOrders)
-   
-        console.log(parsedOrders)
+
     }
     
     const getParcels = async () => {
         const OrdersRef = await database.ref('parcels').get();
         
         const allParcels: IParcels = OrdersRef.val()
+
+        if(allParcels) {
 
            const parsedOrders = Object.entries(allParcels).map(([key, value]) => {
             return {
@@ -94,9 +102,10 @@ export function OrderContextProvider(props: OrderContextProps) {
             
          })
 
-    setParcels(parsedOrders)
-   
-        console.log(parsedOrders)
+            setParcels(parsedOrders)
+        } else {
+            setParcels(undefined)  
+        }
     }
 
     const payParcel = useCallback( async (parcelId: string) => {
@@ -148,7 +157,24 @@ export function OrderContextProvider(props: OrderContextProps) {
 
     },[])
 
-    
+    const deleteOrder = async (orderId: string) => {
+        
+        if(parcels) {
+            const parcelFound = parcels.filter(parcel => parcel.id_order === orderId)
+            console.log("found", parcelFound)
+            for (let parcelCount = 0; parcelCount < parcelFound.length; parcelCount++) {
+                await database.ref(`/parcels/${parcelFound[parcelCount].id}`).remove()  
+                
+                console.log("looping", parcelFound[parcelCount].id)
+            }
+
+            await database.ref(`/orders/${orderId}`).remove()        
+
+        } else {
+            alert("Parcelas não encontradas, tente novamente por favor.")
+        }
+
+    }
 
     useEffect(() => {
        getOrders();
@@ -156,7 +182,7 @@ export function OrderContextProvider(props: OrderContextProps) {
     },[createOrders, payParcel])
 
     return (
-        <OrderContext.Provider value={{ orders, parcels, createOrders, getOrders, getParcels, payParcel }}>
+        <OrderContext.Provider value={{ orders, parcels, createOrders, getOrders, getParcels, payParcel, deleteOrder }}>
             {props.children}
         </OrderContext.Provider>
     )

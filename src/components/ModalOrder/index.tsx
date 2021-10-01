@@ -9,7 +9,7 @@ import Input from '../Input';
 import Select from '../Select';
 import ButtonForm from '../ButtonForm';
 import ViewOrderDetailed from '../ViewOrderDetailed'
-import { Container, TableContainer, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts } from './styles'
+import { Container, EmptyList, TableContainer, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts } from './styles'
 
 
 interface formData {
@@ -40,7 +40,7 @@ const ModalOrders: React.FC = () => {
 
     const { products } = useProduct()
     const { clients, getClients } = useClient()
-    const { createOrders, orders, getOrders, getParcels } = useOrder()
+    const { createOrders, orders, getOrders, getParcels, deleteOrder } = useOrder()
 
     const [price_total, setPrice_total] = useState<number>(0);
     const [type_payment, setType_payment] = useState<string>('');
@@ -195,6 +195,15 @@ const ModalOrders: React.FC = () => {
              setOrderIdSelected(idOrder)
        }
 
+       const handleDeleteOrder = async (orderId: string) => {
+           // eslint-disable-next-line no-restricted-globals
+           if(confirm("Tem certeza que deseja excluir esse pedido?")){
+            await deleteOrder(orderId)
+
+            getOrders()
+           };
+       }
+
        const clientName = (id: string) => {
         const client = clients?.find(client => client.id === id)
         return client?.name || '';
@@ -309,6 +318,7 @@ const ModalOrders: React.FC = () => {
                             name="Data de vencimento da 1º Parcela" 
                             type="data" placeholder="01/01/2021" 
                             hide={false} 
+                            sizeWidth="B"
                             onChange={event => setParcelDue1(event.target.value)} 
                             value={parcelDue1} 
                         />
@@ -318,15 +328,17 @@ const ModalOrders: React.FC = () => {
                             type="data" 
                             placeholder="01/01/2021" 
                             hide={ quantity_parcels < 2 } 
+                            sizeWidth="B"
                             onChange={event => setParcelDue2(event.target.value)} 
                             value={parcelDue2} 
                         />
 
-                        <Input 
+                        <Input  
                             name="Data de vencimento da 3º Parcela" 
                             type="data" 
                             placeholder="01/01/2021" 
                             hide={ quantity_parcels < 3} 
+                            sizeWidth="B"
                             onChange={event => setParcelDue3(event.target.value)} 
                             value={parcelDue3} 
                         />
@@ -336,6 +348,7 @@ const ModalOrders: React.FC = () => {
                             type="data" 
                             placeholder="01/01/2021" 
                             hide={ quantity_parcels !== 4 } 
+                            sizeWidth="B"
                             onChange={event => setParcelDue4(event.target.value)} 
                             value={parcelDue4}
                         />
@@ -363,7 +376,8 @@ const ModalOrders: React.FC = () => {
                 <div className="headerTable">
                     <ButtonForm type="button" name="Fazer Pedido" onClick={handleShowListOrCreated} colorBackground="green" />
                 </div>
-                
+                {orders ? (
+                            
                 <TableContainer>
                 <TableCllient>    
                         <thead>
@@ -386,8 +400,7 @@ const ModalOrders: React.FC = () => {
                             <td><p>{order.created_date}</p></td>
                             <td>
                                 <FiExternalLink size={20} color={'#29292e'} onClick={() => handleSelectOrderId(order.id)}/>
-                                <FiEdit size={20} color={'#29292e'}/>
-                                <FiTrash2 size={20} color={'#f94144'}/>
+                                <FiTrash2 size={20} color={'#f94144'} onClick={() => {handleDeleteOrder(order.id)}} />
                                 
                             </td>
                         </>
@@ -396,6 +409,10 @@ const ModalOrders: React.FC = () => {
                     </tbody>
                 </TableCllient>
                 </TableContainer>
+   
+                ) : (
+                <EmptyList>Listagem de pedidos vazia</EmptyList>
+                )}
                 </>
             
             ) }

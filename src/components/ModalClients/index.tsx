@@ -119,6 +119,7 @@ const ModalClients: React.FC = () => {
                             name="Nome e sobrenome"
                             onChange={event => setName(event.target.value)}
                             value={name}
+                            sizeWidth="B"
                         />
                         <Input 
                             type="text"
@@ -127,6 +128,7 @@ const ModalClients: React.FC = () => {
                             name="Email"
                             onChange={event => setEmail(event.target.value)}
                             value={email}
+                            sizeWidth="B"
                          />
 
                         <Input 
@@ -136,6 +138,7 @@ const ModalClients: React.FC = () => {
                             name="Telefone celular"
                             onChange={event => setCel_number(event.target.value)}
                             value={cel_number} 
+                            sizeWidth="B"
                         />
                         <Input 
                             type="text"
@@ -144,6 +147,7 @@ const ModalClients: React.FC = () => {
                             name="Endereço"
                             onChange={event => setAdress(event.target.value)}
                             value={adress}
+                            sizeWidth="B"
                         />
 
                         <div className="ButtonsClient">

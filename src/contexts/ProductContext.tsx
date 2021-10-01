@@ -18,6 +18,8 @@ type ProductContextType = {
     products: IProducts[] | undefined
     getProducts: () => Promise<void>
     createProducts: (name: string, description: string, price: number, created_date: string) => Promise<void>
+    updateProducts: ( data: {id:string, name: string, description: string, price: number} ) => Promise<void>
+    deleteProduct: (id: string) => Promise<void>
 }
 
 type ProductContextProps = {
@@ -33,6 +35,8 @@ export function ProductContextProvider(props: ProductContextProps) {
         
         const allProducts: IProducts = productsRef.val()
 
+        if(allProducts) {
+
            const parsedProducts = Object.entries(allProducts).map(([key, value]) => {
             return {
                 id: key,
@@ -44,8 +48,10 @@ export function ProductContextProvider(props: ProductContextProps) {
     })
 
     setProducts(parsedProducts)
-   
-        //console.log(parsedProducts)
+    } else {
+        setProducts(undefined)
+    }
+            
     }
 
 
@@ -59,13 +65,31 @@ export function ProductContextProvider(props: ProductContextProps) {
         created_date: created_date
     })  
     },[])
+    
+    const updateProducts = useCallback( async (data) => {
+        
+        const productRef = database.ref(`products/${data.id}`)
+
+        await productRef.update({
+            name: data.name,
+            description: data.description,
+            price: data.price,
+        })
+
+    },[])
+
+    const deleteProduct = useCallback( async (id: string) => {
+        
+        await database.ref(`/products/${id}`).remove()        
+
+    },[])
 
     useEffect(() => {
         getProducts();
     },[createProducts])
 
     return (
-        <ProductContext.Provider value={{ products, createProducts, getProducts }}>
+        <ProductContext.Provider value={{ products, createProducts, getProducts, updateProducts, deleteProduct }}>
             {props.children}
         </ProductContext.Provider>
     )

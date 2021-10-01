@@ -26,7 +26,7 @@ export const ContainerButton = styled.button<buttonProps>`
             transition: background-color 0.2s;
 
             &:hover {
-                background-color: ${shade(0.2, '#7FFF00')};
+                background-color:  ${shade(0.2, '#7FFF00')};
             }        
         > button {
             gap: 10px;
