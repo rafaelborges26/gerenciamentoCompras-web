@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const Header = styled.header`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: end;
     max-width: 100%;
     height: 100px;
     background: #6E955F;
@@ -59,7 +59,7 @@ export const Modal = styled.div`
     display: flex;
     flex-direction: column;
     height: 400px;
-    width: 400px;
+    width: 93%;
     align-items: center;
     justify-content: space-evenly;
     box-shadow: 3px 2px 5px 4px rgba(0, 0, 0, 0.08);

@@ -29,7 +29,6 @@ const Login: React.FC = () => {
     return (
         <Container>
             <Header>
-                    <img src={Logo} alt="Logo"/>
                 <div className="Login">
                     <button onClick={handleSignIn}>
                         Entre

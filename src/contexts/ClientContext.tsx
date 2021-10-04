@@ -19,6 +19,9 @@ type ClientContextType = {
     clients: IClients[] | undefined
     getClients: () => Promise<void>
     createClients: (name: string, email: string, cel_number: string, adress: string, created_date: string) => Promise<void>
+    updateClients: ( data: {id:string, name: string, email: string, adress: string} ) => Promise<void>
+    deleteClient: (id: string) => Promise<void>
+
 }
 
 type ClientContextProps = {
@@ -71,8 +74,27 @@ export function ClientContextProvider(props: ClientContextProps) {
         
     },[])
 
+    const updateClients = useCallback( async (data) => {
+        
+        const clientRef = database.ref(`clients/${data.id}`)
+
+        await clientRef.update({
+            name: data.name,
+            email: data.email,
+            adress: data.adress,
+        })
+
+    },[])
+
+    const deleteClient = useCallback( async (id: string) => {
+        
+        await database.ref(`/clients/${id}`).remove()        
+
+    },[])
+
+
     return (
-        <ClientContext.Provider value={{ clients, getClients, createClients }}>
+        <ClientContext.Provider value={{ clients, getClients, createClients, updateClients, deleteClient }}>
             {props.children}
         </ClientContext.Provider>
     )    

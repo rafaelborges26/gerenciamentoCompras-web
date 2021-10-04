@@ -11,7 +11,7 @@ export const Container = styled.div`
     justify-content: center;
 
     form {
-        padding: 20px 60px;
+        padding: 20px 30px;
         
         .ButtonsClient {
             display: flex;
@@ -24,6 +24,7 @@ export const Container = styled.div`
         align-items: flex-end;
         justify-content: flex-end;
         width: 100%;
+        margin-left: 12px;
     }
 
     
@@ -75,8 +76,17 @@ export const TableCllient = styled.table`
 
 
     table {
-        overflow-x: auto;
         width: 100%;
+
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+          width: 2px;
+        }
+        &::-webkit-scrollbar-thumb {
+          border-radius: 2px;
+          background: #ccc;
+        }
     }
 
     td {

@@ -78,8 +78,17 @@ export const TableCllient = styled.table`
     }
 
     table {
-        overflow-x: auto;
         width: 100%;
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+          width: 2px;
+        }
+        &::-webkit-scrollbar-thumb {
+          border-radius: 2px;
+          background: #ccc;
+        }
+
     }
 
     td {

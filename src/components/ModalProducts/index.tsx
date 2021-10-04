@@ -173,7 +173,7 @@ const ModalProducts: React.FC = () => {
                     </form>
             ) }
 
-        <ModalUpdateProduct productId={productIdSelected} isOpen={modalUpdateProduct} onClose={() => {setModalUpdateProduct(false)}} />
+        <ModalUpdateProduct idSelected={productIdSelected} isOpen={modalUpdateProduct} typeModal={'product'}  onClose={() => {setModalUpdateProduct(false)}} />
 
         </Container>
     )

@@ -4,6 +4,7 @@ import { FiTrash2, FiEdit, FiExternalLink } from 'react-icons/fi';
 import { useClient } from '../../hooks/useClient'
 import { format } from 'date-fns';
 
+import ModalUpdateProduct from '../ModalUpdateProduct';
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
 import { Container, TableContainer, TableCllient } from './styles'
@@ -11,7 +12,7 @@ import { Container, TableContainer, TableCllient } from './styles'
 
 const ModalClients: React.FC = () => {
 
-    const { clients, getClients, createClients } = useClient();
+    const { clients, getClients, createClients, deleteClient } = useClient();
 
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -19,6 +20,9 @@ const ModalClients: React.FC = () => {
     const [adress, setAdress] = useState<string>('');
     const [listClients, setListClients] = useState(false)
     const [createdClients, setCreatedClients] = useState(true)
+
+    const [clientIdSelected, setClientIdSelected] = useState('')
+    const [modalUpdateClient, setModalUpdateClient] = useState(false)
 
 
 
@@ -57,7 +61,23 @@ const ModalClients: React.FC = () => {
        useEffect(() => {
         getClients()
        // eslint-disable-next-line react-hooks/exhaustive-deps
-       },[listClients])
+       },[listClients, modalUpdateClient])
+
+
+       const handleEditClient = (idClient: string) => {
+        setModalUpdateClient(true)
+        setClientIdSelected(idClient)
+       }
+
+       const handleDeleteClient = async (id: string) => {
+        // eslint-disable-next-line no-restricted-globals
+        if(confirm("Tem certeza que deseja excluir esse cliente?")){
+         
+         await deleteClient(id)
+
+         getClients()
+        };
+    }
 
     return (
         <Container>
@@ -91,9 +111,8 @@ const ModalClients: React.FC = () => {
                             <td><p>{client.cel_number}</p></td>
                             <td><p>{client.adress}</p></td>
                             <td>
-                                <FiExternalLink size={20} color={'#29292e'}/>
-                                <FiEdit size={20} color={'#29292e'}/>
-                                <FiTrash2 size={20} color={'#f94144'}/>
+                                <FiEdit size={20} color={'#29292e'} onClick={() => { client.id && handleEditClient(client.id)}} />
+                                <FiTrash2 size={20} color={'#f94144'} onClick={() => { client.id && handleDeleteClient(client.id)}} />
                                 
                             </td>
                         </>
@@ -158,6 +177,9 @@ const ModalClients: React.FC = () => {
                         </div>
                     </form>
             ) }
+
+            <ModalUpdateProduct idSelected={clientIdSelected} isOpen={modalUpdateClient} typeModal={'client'}  onClose={() => {setModalUpdateClient(false)}} />
+
 
         </Container>
     )

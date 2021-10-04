@@ -10,9 +10,11 @@ export const Header = styled.header`
     display: flex;
     flex-direction: row;
     gap: 30%;
+    margin-bottom: 20px;
     width: 100%;
     height: 20%;
     background: #228B22;
+    justify-content: center;
 
     img {
         height: 100px;
@@ -20,11 +22,12 @@ export const Header = styled.header`
     }
 
     .Options {
+        display: flex;
 
         button {
             margin-right: 10px;
             margin-top: 10px;
-            font-weight: 700;
+            font-weight: 500;
         }   
     }
 `
