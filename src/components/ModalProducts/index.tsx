@@ -5,7 +5,7 @@ import { useProduct } from '../../hooks/useProduct';
 import { format } from 'date-fns'
 import formatReal from '../../utils/formatReal';
 
-import ModalUpdateProduct from '../ModalUpdateProduct';
+import ModalUpdate from '../ModalUpdate';
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
 import { Container, TableContainer, TableCllient, EmptyList } from './styles'
@@ -41,8 +41,6 @@ const ModalProducts: React.FC = () => {
         const created_date = format(new Date(), 'dd/mm/yyyy');
 
         await createProducts(name, description, Number(price), created_date)
-
-        alert("Cadastro criado com sucesso")
 
         setName('');
         setDescription('');
@@ -173,7 +171,7 @@ const ModalProducts: React.FC = () => {
                     </form>
             ) }
 
-        <ModalUpdateProduct idSelected={productIdSelected} isOpen={modalUpdateProduct} typeModal={'product'}  onClose={() => {setModalUpdateProduct(false)}} />
+        <ModalUpdate idSelected={productIdSelected} isOpen={modalUpdateProduct} typeModal={'product'}  onClose={() => {setModalUpdateProduct(false)}} />
 
         </Container>
     )

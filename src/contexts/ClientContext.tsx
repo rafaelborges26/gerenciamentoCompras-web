@@ -63,6 +63,7 @@ export function ClientContextProvider(props: ClientContextProps) {
 
     const createClients = useCallback( async(name: string, email: string, cel_number: string, adress: string, created_date: string) => {
     
+        try {
         const clientRef = database.ref('clients')
 
         const firebaseClient = await clientRef.push({
@@ -73,24 +74,41 @@ export function ClientContextProvider(props: ClientContextProps) {
             created_date: created_date,
         })
 
+        alert("Cadastro criado com sucesso")
+
+                    
+    } catch (error) {
+        alert("Ocorreu um erro com a tentativa da criação")
+    }
         
     },[])
 
     const updateClients = useCallback( async (data) => {
         
-        const clientRef = database.ref(`clients/${data.id}`)
+        try {
+            const clientRef = database.ref(`clients/${data.id}`)
 
         await clientRef.update({
             name: data.name,
             email: data.email,
             adress: data.adress,
         })
+    
+        } catch (error) {
+            alert("Ocorreu um erro com a tentativa de atualização dos dados")            
+        }
 
+        
     },[])
 
     const deleteClient = useCallback( async (id: string) => {
         
-        await database.ref(`/clients/${id}`).remove()        
+        try {
+            await database.ref(`/clients/${id}`).remove()        
+            
+        } catch (error) {
+            alert("Ocorreu um erro com a tentativa de exclusão")            
+        }
 
     },[])
 

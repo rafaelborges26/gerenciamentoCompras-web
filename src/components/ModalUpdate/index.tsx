@@ -26,7 +26,7 @@ interface IParcels {
 }
 
 
-    const ViewOrderDetailed: React.FC<ViewOrderDetailedProps> = ({idSelected, isOpen, ...props}: ViewOrderDetailedProps) => {
+    const ModalUpdate: React.FC<ViewOrderDetailedProps> = ({idSelected, isOpen, ...props}: ViewOrderDetailedProps) => {
 
         const { typeModal ,onClose } = props
 
@@ -165,4 +165,4 @@ interface IParcels {
     )
 }
 
-export default ViewOrderDetailed
+export default ModalUpdate

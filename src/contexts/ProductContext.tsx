@@ -59,30 +59,47 @@ export function ProductContextProvider(props: ProductContextProps) {
     const createProducts = useCallback( async(name: string, description: string, price: number, created_date: string) => {
         const productRef = database.ref('products')
 
-    await productRef.push({
-        name: name,
-        description: description,
-        price: price,
-        created_date: created_date
-    })  
+        try {
+            await productRef.push({
+                name: name,
+                description: description,
+                price: price,
+                created_date: created_date
+            })
+            alert("Cadastro criado com sucesso")
+
+        } catch (error) {
+            alert("Ocorreu um erro com a tentativa de criação")
+        }
+
     },[])
     
     const updateProducts = useCallback( async (data) => {
         
         const productRef = database.ref(`products/${data.id}`)
 
-        await productRef.update({
-            name: data.name,
-            description: data.description,
-            price: data.price,
-        })
+        try {
+            
+            await productRef.update({
+                name: data.name,
+                description: data.description,
+                price: data.price,
+            })
+        } catch (error) {
+            alert("Ocorreu um erro com a tentativa de atualização")
+        }
 
     },[])
 
     const deleteProduct = useCallback( async (id: string) => {
         
-        await database.ref(`/products/${id}`).remove()        
-
+        try {
+            await database.ref(`/products/${id}`).remove()        
+    
+        } catch (error) {
+            alert("Ocorreu um erro com a tentativa de exclusão")            
+        }
+        
     },[])
 
     useEffect(() => {

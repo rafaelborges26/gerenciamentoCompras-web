@@ -104,8 +104,6 @@ const ModalOrders: React.FC = () => {
         
         await createOrders(price_total, type_payment, quantity_parcels, productsList, clientList, parcelDue1, parcelDue2, parcelDue3, parcelDue4 )
         
-        alert("Pedido realizado com sucesso");
-
         //back values default
         setPrice_total(0);
         setType_payment('credit');

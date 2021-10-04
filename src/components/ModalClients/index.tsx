@@ -1,12 +1,17 @@
-import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState, useEffect } from 'react';
-import { FiTrash2, FiEdit, FiExternalLink } from 'react-icons/fi';
-
-import { useClient } from '../../hooks/useClient'
+//Libs
+import  React, { FormEvent, useState, useEffect } from 'react';
 import { format } from 'date-fns';
+import { useClient } from '../../hooks/useClient'
 
-import ModalUpdateProduct from '../ModalUpdateProduct';
-import Input from '../Input';
+//UI - Components
+import ModalUpdate from '../ModalUpdate';
 import ButtonForm from '../ButtonForm';
+
+//Icons
+import Input from '../Input';
+import { FiTrash2, FiEdit } from 'react-icons/fi';
+
+//Styles
 import { Container, TableContainer, TableCllient } from './styles'
 
 
@@ -43,8 +48,6 @@ const ModalClients: React.FC = () => {
 
         await createClients(name, email, cel_number, adress, created_date)
         
-        alert("Cadastro criado com sucesso")
-
         setName('');
         setEmail('');
         setCel_number('');
@@ -178,7 +181,7 @@ const ModalClients: React.FC = () => {
                     </form>
             ) }
 
-            <ModalUpdateProduct idSelected={clientIdSelected} isOpen={modalUpdateClient} typeModal={'client'}  onClose={() => {setModalUpdateClient(false)}} />
+            <ModalUpdate idSelected={clientIdSelected} isOpen={modalUpdateClient} typeModal={'client'}  onClose={() => {setModalUpdateClient(false)}} />
 
 
         </Container>

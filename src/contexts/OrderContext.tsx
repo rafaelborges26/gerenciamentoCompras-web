@@ -113,10 +113,15 @@ export function OrderContextProvider(props: OrderContextProps) {
     const payParcel = useCallback( async (parcelId: string) => {
 
         const parcelRef = database.ref(`parcels/${parcelId}`)
+            
+        try {
+            await parcelRef.update({
+                status_payment: true,
+            })    
+        } catch (error) {
+            alert("Ocorreu um erro com a tentativa de pagamento")
+        }
         
-        await parcelRef.update({
-            status_payment: true,
-        })
     },[])
      
 
@@ -129,6 +134,8 @@ export function OrderContextProvider(props: OrderContextProps) {
 
         const orderRef = database.ref('orders')
 
+        try {
+            
         const firebaseOrder = await orderRef.push({
             price_total,
             type_payment,
@@ -157,20 +164,31 @@ export function OrderContextProvider(props: OrderContextProps) {
         }
 
 
+    } catch (error) {
+        alert("Ocorreu um erro com a tentativa de criação do pedido")       
+    }
+
     },[])
 
     const deleteOrder = async (orderId: string) => {
         
         if(parcels) {
             const parcelFound = parcels.filter(parcel => parcel.id_order === orderId)
-            console.log("found", parcelFound)
+        
+        try {            
+
             for (let parcelCount = 0; parcelCount < parcelFound.length; parcelCount++) {
                 await database.ref(`/parcels/${parcelFound[parcelCount].id}`).remove()  
                 
                 console.log("looping", parcelFound[parcelCount].id)
             }
 
-            await database.ref(`/orders/${orderId}`).remove()        
+                await database.ref(`/orders/${orderId}`).remove()                        
+
+                alert("Pedido realizado com sucesso");
+            } catch (error) {
+                alert("Ocorreu um erro com a tentativa de exclusão")
+            }
 
         } else {
             alert("Parcelas não encontradas, tente novamente por favor.")
