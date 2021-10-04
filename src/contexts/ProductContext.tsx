@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
-import { useCallback } from 'react'
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useState, useCallback, useEffect } from 'react'
+import { useAuth } from '../hooks/useAuth'
 import { database } from '../services/firebase'
 
 export const ProductContext = createContext({} as ProductContextType )
@@ -27,6 +26,8 @@ type ProductContextProps = {
 }
 
 export function ProductContextProvider(props: ProductContextProps) {
+
+    const { user } = useAuth();
 
     const [products, setProducts] = useState<IProducts[]>()
 
@@ -85,8 +86,10 @@ export function ProductContextProvider(props: ProductContextProps) {
     },[])
 
     useEffect(() => {
-        getProducts();
-    },[createProducts])
+        if(user) {
+            getProducts();
+        }
+    },[createProducts, user])
 
     return (
         <ProductContext.Provider value={{ products, createProducts, getProducts, updateProducts, deleteProduct }}>

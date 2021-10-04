@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
-import { useCallback } from 'react'
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useState, useCallback, useEffect } from 'react'
 import { database } from '../services/firebase'
 import { format } from 'date-fns'
+import { useAuth } from '../hooks/useAuth'
+
 
 export const OrderContext = createContext({} as OrderContextType )
 
@@ -50,6 +50,8 @@ type OrderContextProps = {
 }
 
 export function OrderContextProvider(props: OrderContextProps) {
+
+    const { user } = useAuth()
 
     const [orders, setOrders] = useState<IOrders[]>()
     const [parcels, setParcels] = useState<IParcels[]>()
@@ -177,9 +179,11 @@ export function OrderContextProvider(props: OrderContextProps) {
     }
 
     useEffect(() => {
-       getOrders();
-       getParcels();
-    },[createOrders, payParcel])
+        if(user) {
+            getOrders();
+            getParcels();
+        }
+    },[createOrders, payParcel, user])
 
     return (
         <OrderContext.Provider value={{ orders, parcels, createOrders, getOrders, getParcels, payParcel, deleteOrder }}>

@@ -1,7 +1,6 @@
-import { useEffect } from 'react'
-import { useCallback } from 'react'
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useState, useEffect, useCallback } from 'react'
 import { database } from '../services/firebase'
+import { useAuth } from '../hooks/useAuth'
 
 export const ClientContext = createContext({} as ClientContextType )
 
@@ -30,6 +29,8 @@ type ClientContextProps = {
 
 export function ClientContextProvider(props: ClientContextProps) {
 
+    const { user } = useAuth();
+
     const [clients, setClients] = useState<IClients[]>()
 
     const getClients = async () => {
@@ -55,8 +56,9 @@ export function ClientContextProvider(props: ClientContextProps) {
     }
 
     useEffect(() => {
+        if(user)
         getClients();
-    },[])
+    },[user])
 
 
     const createClients = useCallback( async(name: string, email: string, cel_number: string, adress: string, created_date: string) => {
