@@ -1,3 +1,4 @@
+//Libs - Hooks
 import { createContext, ReactNode, useState, useEffect, useCallback } from 'react'
 import { database } from '../services/firebase'
 import { useAuth } from '../hooks/useAuth'
@@ -40,19 +41,24 @@ export function ClientContextProvider(props: ClientContextProps) {
         if(clientsRef) {
             const clientsAll: IClients = clientsRef.val()
 
-           const parsedClients = Object.entries(clientsAll).map(([key, value]) => {
-            return {
-                id: key,
-                name: value.name,
-                email: value.email,
-                cel_number: value.cel_number,
-                adress: value.adress,
-                created_date: value.created_date
+            if(clientsAll) {
+                const parsedClients = Object.entries(clientsAll).map(([key, value]) => {
+                    return {
+                        id: key,
+                        name: value.name,
+                        email: value.email,
+                        cel_number: value.cel_number,
+                        adress: value.adress,
+                        created_date: value.created_date
+                    }
+            })
+        
+            setClients(parsedClients)
+                } else {
+                    setClients(undefined)
+                }  
             }
-    })
 
-    setClients(parsedClients)
-        }  
     }
 
     useEffect(() => {

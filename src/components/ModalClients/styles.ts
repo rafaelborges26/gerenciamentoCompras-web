@@ -26,9 +26,12 @@ export const Container = styled.div`
         width: 100%;
         margin-left: 12px;
     }
-
     
 `
+
+export const EmptyList = styled.h2`
+    margin-top: 300px;
+`;
 
 export const TableContainer = styled.div`
     height: 80%;

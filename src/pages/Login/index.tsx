@@ -22,7 +22,6 @@ const Login: React.FC = () => {
             await SignInWithGoogle();
         }
 
-        console.log("logou")
         history.push('/dashboard')
     }
 

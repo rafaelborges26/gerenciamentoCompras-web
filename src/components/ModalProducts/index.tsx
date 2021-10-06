@@ -1,13 +1,18 @@
+//Libs - Hooks
 import  React, { FormEvent, useState, useEffect } from 'react';
-import { FiTrash2, FiEdit } from 'react-icons/fi';
-
 import { useProduct } from '../../hooks/useProduct';
-import { format } from 'date-fns'
-import formatReal from '../../utils/formatReal';
 
+//UI - Components - Utils
 import ModalUpdate from '../ModalUpdate';
 import Input from '../Input';
 import ButtonForm from '../ButtonForm';
+import formatReal from '../../utils/formatReal';
+import getFormatedDate from '../../utils/formatDate';
+
+//Icons
+import { FiTrash2, FiEdit } from 'react-icons/fi';
+
+//Styles
 import { Container, TableContainer, TableCllient, EmptyList } from './styles'
 
 const ModalProducts: React.FC = () => {
@@ -38,7 +43,7 @@ const ModalProducts: React.FC = () => {
 
         //Enviar dados
         
-        const created_date = format(new Date(), 'dd/mm/yyyy');
+        const created_date = getFormatedDate();
 
         await createProducts(name, description, Number(price), created_date)
 

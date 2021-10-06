@@ -6,7 +6,7 @@ interface PropsSelect {
 
 export const Container = styled.div<PropsSelect>`
     width: 80%;
-    height: ${props => props.multiselect ? '130px' : '100px' };
+    height: ${props => props.multiselect ? '130px' : '80px' };
     display: flex;
     flex-direction: column;
 

@@ -28,8 +28,8 @@ export const ContainerButton = styled.button<buttonProps>`
             &:hover {
                 background-color:  ${shade(0.2, '#7FFF00')};
             }        
-        > button {
-            gap: 10px;
+        button + button {
+            margin-right: 12px;
         } 
     
 `

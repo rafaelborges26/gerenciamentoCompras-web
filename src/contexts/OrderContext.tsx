@@ -1,8 +1,10 @@
+//Libs = Hooks
 import { createContext, ReactNode, useState, useCallback, useEffect } from 'react'
 import { database } from '../services/firebase'
-import { format } from 'date-fns'
 import { useAuth } from '../hooks/useAuth'
 
+//UI - Components - Utils
+import getFormatedDate from '../utils/formatDate'
 
 export const OrderContext = createContext({} as OrderContextType )
 
@@ -127,7 +129,7 @@ export function OrderContextProvider(props: OrderContextProps) {
 
     const createOrders = useCallback( async(price_total: number, type_payment: string, quantity_parcels: number, products: IProductsList[], client: string, parcelDue1: string, parcelDue2: string, parcelDue3: string, parcelDue4: string ) => {
         
-        const formattedDate = format(new Date(), 'dd/mm/yyyy');
+        const formatedDate = getFormatedDate();
 
         const valueParcel = price_total / quantity_parcels;
 
@@ -142,7 +144,7 @@ export function OrderContextProvider(props: OrderContextProps) {
             quantity_parcels,
             products,
             client,
-            created_date: formattedDate,
+            created_date: formatedDate,
         })
 
         const idOrder = firebaseOrder.key
@@ -150,7 +152,6 @@ export function OrderContextProvider(props: OrderContextProps) {
         const parcelsDue = [parcelDue1, parcelDue2, parcelDue3, parcelDue4]
 
         //criar parcels
-        //add data de vencimento
         const parcelsRef = database.ref('parcels')
 
         for (let repeatParcel = 0; repeatParcel < quantity_parcels; repeatParcel++) {
@@ -162,8 +163,7 @@ export function OrderContextProvider(props: OrderContextProps) {
                 status_payment: false,
             })
         }
-
-
+        alert("O pedido foi criado corretamente.")
     } catch (error) {
         alert("Ocorreu um erro com a tentativa de criação do pedido")       
     }
@@ -178,14 +178,11 @@ export function OrderContextProvider(props: OrderContextProps) {
         try {            
 
             for (let parcelCount = 0; parcelCount < parcelFound.length; parcelCount++) {
-                await database.ref(`/parcels/${parcelFound[parcelCount].id}`).remove()  
-                
-                console.log("looping", parcelFound[parcelCount].id)
+                await database.ref(`/parcels/${parcelFound[parcelCount].id}`).remove()                  
             }
 
                 await database.ref(`/orders/${orderId}`).remove()                        
 
-                alert("Pedido realizado com sucesso");
             } catch (error) {
                 alert("Ocorreu um erro com a tentativa de exclusão")
             }

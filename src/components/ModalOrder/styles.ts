@@ -11,12 +11,6 @@ export const Container = styled.div`
     
     form {
         padding: 20px 30px;
-        
-        .ButtonsOrders {
-            display: flex;
-            flex-direction: row;
-            gap: 12px;
-        }
     }
 
     .headerTable {
@@ -26,6 +20,15 @@ export const Container = styled.div`
         margin-left: 12px;
     }
     
+`
+
+export const ButtonsOrders = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    //button + button {
+    //    margin-left: 10px;
+    //}
 `
 
 export const EmptyList = styled.h2`
@@ -140,13 +143,12 @@ export const ValueTotal = styled.div`
     display: flex;
     
     align-items: center;
-    justify-content: end;
-    gap: 5px;
-    padding: 5px;
-    margin-bottom: 10px;
+    justify-content: flex-end;
+    margin-bottom: 15px;
 
     span {
         font-size: 16px;
+        margin-right: 5px;
     }
 
     h5 {
@@ -172,7 +174,10 @@ export const EditProducts = styled.div`
         align-items: center;
         color: black;
         cursor: pointer;
-        
+    }
+
+    span {
+        //margin: 0 5px
     }
 `;
 

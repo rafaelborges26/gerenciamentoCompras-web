@@ -1,9 +1,9 @@
 //Libs
 import  React, { FormEvent, useState, useEffect } from 'react';
-import { format } from 'date-fns';
 import { useClient } from '../../hooks/useClient'
 
-//UI - Components
+//UI - Components - Utils
+import getFormatedDate from '../../utils/formatDate'
 import ModalUpdate from '../ModalUpdate';
 import ButtonForm from '../ButtonForm';
 
@@ -12,7 +12,7 @@ import Input from '../Input';
 import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 //Styles
-import { Container, TableContainer, TableCllient } from './styles'
+import { Container, EmptyList, TableContainer, TableCllient } from './styles'
 
 
 const ModalClients: React.FC = () => {
@@ -44,7 +44,7 @@ const ModalClients: React.FC = () => {
 
         //Enviar dados
 
-        const created_date = format(new Date(), 'dd/mm/yyyy');
+        const created_date = getFormatedDate();
 
         await createClients(name, email, cel_number, adress, created_date)
         
@@ -92,7 +92,10 @@ const ModalClients: React.FC = () => {
                 <div className="headerTable">
                     <ButtonForm type="button" name="Criar Cliente" onClick={handleShowListOrCreated} colorBackground="green" />
                 </div>
-            
+                
+                {clients ? (
+
+                
                 <TableContainer>
                 <TableCllient>
                     
@@ -125,6 +128,10 @@ const ModalClients: React.FC = () => {
                     </table>
                 </TableCllient>
                 </TableContainer>
+
+                ) : (
+                    <EmptyList>Listagem de clientes vazia</EmptyList>
+                )}
                 </>
                 
             )

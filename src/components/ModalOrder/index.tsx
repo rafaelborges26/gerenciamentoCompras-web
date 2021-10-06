@@ -1,16 +1,21 @@
-import  React, { ReactNode, ButtonHTMLAttributes, FormEvent, useState, useCallback, useMemo, useEffect } from 'react';
-import { FiPlusCircle, FiMinusCircle, FiTrash2, FiEdit, FiExternalLink } from 'react-icons/fi';
+//Libs - Hooks
+import  React, { FormEvent, useState, useEffect } from 'react';
 import { useProduct } from '../../hooks/useProduct';
 import { useClient } from '../../hooks/useClient';
 import { useOrder } from '../../hooks/useOrder';
-import formatReal from '../../utils/formatReal';
 
+//UI - Components - Utils
 import Input from '../Input';
 import Select from '../Select';
 import ButtonForm from '../ButtonForm';
 import ViewOrderDetailed from '../ViewOrderDetailed'
-import { Container, EmptyList, TableContainer, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts } from './styles'
+import formatReal from '../../utils/formatReal';
 
+//Icons
+import { FiPlusCircle, FiMinusCircle, FiTrash2, FiExternalLink } from 'react-icons/fi';
+
+//Styles
+import { Container, ButtonsOrders, EmptyList, TableContainer, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts } from './styles'
 
 interface formData {
     price_total: number;
@@ -59,12 +64,6 @@ const ModalOrders: React.FC = () => {
     const [viewOrderDetailed, setViewOrderDetailed] = useState(false)
     const [orderIdSelected, setOrderIdSelected] = useState('')
 
-    console.log("orders",orders)
-
-    if(clients) {
-       console.log("clientId", clients[0].id)
-    }
-
     const setInitialValues = () => {
         clients && clients[0].id && setclientList(clients[0].id) 
     
@@ -93,7 +92,10 @@ const ModalOrders: React.FC = () => {
         event.preventDefault()
         
         //validations
-        
+        console.log(productsList,"productt")
+        console.log(price_total)
+        console.log(type_payment)
+        console.log(clientList)
         //ver preço
         if(price_total === 0 || type_payment.trim() === '' || clientList.trim() === '' || productsList.length === 0) {
             alert("É necessário preencher os campos")
@@ -243,9 +245,8 @@ const ModalOrders: React.FC = () => {
                             name="Produtos" 
                             id="products" 
                             placeholder="Selecione os produtos" 
-                            multiple 
-                            multiselect
-                            onChange={event =>  setProductSelected({id: event.target.value, name: event.target.value})}
+                            multiselect={false}
+                            onChange={event => setProductSelected({id: event.target.value, name: event.target.value})}
                         >
                             { products?.map(product => (
                                 <option key={product.id} value={product.id}>{product.name} </option>
@@ -358,12 +359,12 @@ const ModalOrders: React.FC = () => {
                         </ValueTotal>
 
 
-                        <div className="ButtonsOrders">
+                        <ButtonsOrders>
 
                         <ButtonForm type="submit" name="Fazer pedido" colorBackground="green"/>
                         <ButtonForm type="button" name="Listar Pedidos" onClick={handleShowListOrCreated} colorBackground="green"/>
 
-                        </div>
+                        </ButtonsOrders>
                     </form>
             )
                                  
