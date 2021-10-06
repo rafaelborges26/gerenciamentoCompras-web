@@ -25,10 +25,10 @@ export const Container = styled.div`
 export const ButtonsOrders = styled.div`
     display: flex;
     flex-direction: row;
-    gap: 12px;
-    //button + button {
-    //    margin-left: 10px;
-    //}
+    
+    button + button {
+        margin-left: 10px;
+    }
 `
 
 export const EmptyList = styled.h2`
@@ -177,7 +177,7 @@ export const EditProducts = styled.div`
     }
 
     span {
-        //margin: 0 5px
+        margin: 0 5px
     }
 `;
 
