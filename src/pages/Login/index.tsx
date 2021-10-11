@@ -28,13 +28,10 @@ const Login: React.FC = () => {
     return (
         <Container>
             <Header>
-                <div className="Login">
                     <button onClick={handleSignIn}>
                         Entre
                         <FiLogIn />
-                    </button>
-                </div>
-                
+                    </button>                
             </Header>
             
             <Content>

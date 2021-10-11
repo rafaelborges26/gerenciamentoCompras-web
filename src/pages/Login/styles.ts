@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const Header = styled.header`
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
     max-width: 100%;
     height: 100px;
     background: #6E955F;
@@ -25,7 +25,6 @@ export const Header = styled.header`
         display: flex;
         align-items: center;
         
-        gap: 4px;
         color: #F0FFFF;
 
         margin: 10px 15px 0 0;
@@ -34,6 +33,10 @@ export const Header = styled.header`
         font-family: 'Oxygen', sans-serif;
         transition: color 0.2s;
         cursor: pointer;
+
+        svg {
+            margin-left: 4px;
+        }
 
 
         &:hover {
