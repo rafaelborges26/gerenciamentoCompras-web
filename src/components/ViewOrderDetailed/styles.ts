@@ -6,12 +6,12 @@ interface viewProps {
 
 
 export const Container = styled.div<viewProps>`
-    position: fixed;
+    position: absolute;
     top: 35%;
     
     display: ${props => props.isOpen ? 'flex' : 'none' };
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
     justify-content: flex-start;
 
     padding: 20px;

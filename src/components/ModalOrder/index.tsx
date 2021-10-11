@@ -64,17 +64,11 @@ const ModalOrders: React.FC = () => {
     const [viewOrderDetailed, setViewOrderDetailed] = useState(false)
     const [orderIdSelected, setOrderIdSelected] = useState('')
 
-    console.log(productSelected)
-
     const setInitialValues = () => {
         clients && clients[0].id && setclientList(clients[0].id) 
-        console.log("setado")
-        setType_payment('credit')
-
-        setQuantity_parcels(1)
-
         products && setProductSelected(products[0])
-            
+        setType_payment('credit')
+        setQuantity_parcels(1)
     }
 
 
@@ -97,10 +91,7 @@ const ModalOrders: React.FC = () => {
         event.preventDefault()
         
         //validations
-        console.log(productsList,"productt")
-        console.log(price_total)
-        console.log(type_payment)
-        console.log(clientList)
+        
         //ver preço
         if(price_total === 0 || type_payment.trim() === '' || clientList.trim() === '' || productsList.length === 0) {
             alert("É necessário preencher os campos")
