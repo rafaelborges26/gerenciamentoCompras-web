@@ -184,10 +184,14 @@ export const EditProducts = styled.div`
 export const QuantityProducts = styled.div`
     display: flex;
     flex-direction: row;
-    
-    gap: 5px;
+
     svg {
         color: #228B22;
         cursor: pointer;
     }
+
+    span {
+        margin: 0 5px;
+    }
+    
 `

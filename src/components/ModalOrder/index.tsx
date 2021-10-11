@@ -37,8 +37,8 @@ interface IProductsList {
 }
 
 interface IProductSelected {
-    id: string;
-    name: string;
+    id?: string;
+    name?: string;
 }
 
 const ModalOrders: React.FC = () => {
@@ -64,14 +64,19 @@ const ModalOrders: React.FC = () => {
     const [viewOrderDetailed, setViewOrderDetailed] = useState(false)
     const [orderIdSelected, setOrderIdSelected] = useState('')
 
+    console.log(productSelected)
+
     const setInitialValues = () => {
         clients && clients[0].id && setclientList(clients[0].id) 
-    
+        console.log("setado")
         setType_payment('credit')
 
         setQuantity_parcels(1)
 
+        products && setProductSelected(products[0])
+            
     }
+
 
     const priceTotal = () => {
         let sumPrime = 0
@@ -265,7 +270,7 @@ const ModalOrders: React.FC = () => {
                                     <FiMinusCircle
                                         onClick={() => products.id && handleDecrementProduct(products.id)}
                                     />
-                                {products.quantity}
+                                <span>{products.quantity}</span>
                                     <FiPlusCircle onClick={() => products.id && handleIncrementProduct(products.id)} />
                                     </QuantityProducts>
                                 </EditProducts>
@@ -355,7 +360,6 @@ const ModalOrders: React.FC = () => {
                         <ValueTotal>
                             <span>Valor total:</span>
                             <h5>{formatReal(price_total)}</h5>
-                            
                         </ValueTotal>
 
 

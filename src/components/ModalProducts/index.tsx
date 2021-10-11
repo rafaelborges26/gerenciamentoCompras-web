@@ -13,7 +13,7 @@ import getFormatedDate from '../../utils/formatDate';
 import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 //Styles
-import { Container, TableContainer, TableCllient, EmptyList } from './styles'
+import { Container, ButtonsProduct, TableContainer, TableCllient, EmptyList } from './styles'
 
 const ModalProducts: React.FC = () => {
 
@@ -167,12 +167,10 @@ const ModalProducts: React.FC = () => {
                             value={price}
                         />
 
-                        <div className="ButtonsProducts">
-
+                    <ButtonsProduct>
                         <ButtonForm type="submit" name="Criar Produto" colorBackground="green"/>
                         <ButtonForm type="button" onClick={handleShowListOrCreated} name="Listar Produtos" colorBackground="green"/>
-
-                        </div>
+                    </ButtonsProduct>
                     </form>
             ) }
 

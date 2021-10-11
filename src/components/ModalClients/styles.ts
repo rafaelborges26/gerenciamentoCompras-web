@@ -13,11 +13,6 @@ export const Container = styled.div`
     form {
         padding: 20px 30px;
         
-        .ButtonsClient {
-            display: flex;
-            flex-direction: row;
-            gap: 12px;
-        }
     }
 
     .headerTable {
@@ -27,6 +22,16 @@ export const Container = styled.div`
         margin-left: 12px;
     }
     
+`
+
+
+export const ButtonsClient = styled.div`
+    display: flex;
+    flex-direction: row;
+    
+    button + button {
+        margin-left: 10px;
+    }
 `
 
 export const EmptyList = styled.h2`

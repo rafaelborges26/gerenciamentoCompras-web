@@ -12,7 +12,7 @@ import Input from '../Input';
 import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 //Styles
-import { Container, EmptyList, TableContainer, TableCllient } from './styles'
+import { Container, EmptyList, ButtonsClient, TableContainer, TableCllient } from './styles'
 
 
 const ModalClients: React.FC = () => {
@@ -179,13 +179,11 @@ const ModalClients: React.FC = () => {
                             sizeWidth="B"
                         />
 
-                        <div className="ButtonsClient">
-
+                    <ButtonsClient>
                         <ButtonForm type="submit" name="Criar Cliente" colorBackground="green"/>
                         <ButtonForm type="button" onClick={handleShowListOrCreated} name="Listar clientes" colorBackground="green" />
-
-                        </div>
-                    </form>
+                    </ButtonsClient>
+                  </form>
             ) }
 
             <ModalUpdate idSelected={clientIdSelected} isOpen={modalUpdateClient} typeModal={'client'}  onClose={() => {setModalUpdateClient(false)}} />

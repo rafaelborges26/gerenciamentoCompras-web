@@ -11,12 +11,6 @@ export const Container = styled.div`
 
     > form {
         padding: 20px 30px;
-        
-        .ButtonsProducts {
-            display: flex;
-            flex-direction: row;
-            gap: 12px;
-        }
     }
 
     .headerTable {
@@ -25,8 +19,15 @@ export const Container = styled.div`
         width: 100%;
         margin-left: 12px;
     }
+`
 
+export const ButtonsProduct = styled.div`
+    display: flex;
+    flex-direction: row;
     
+    button + button {
+        margin-left: 10px;
+    }
 `
 
 export const TableContainer = styled.div`
