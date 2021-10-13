@@ -8,6 +8,7 @@ database.rules.json
 /firebase
 # testing
 /coverage
+/firebase
 
 # production
 /build

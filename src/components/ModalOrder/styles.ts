@@ -6,8 +6,8 @@ export const Container = styled.div`
     flex-direction: column;
     margin-top: 50px;
 
-    align-items: center;
-    justify-content: center;
+    align-items: center !important;
+    justify-content: center !important;
     
     form {
         padding: 20px 30px;
@@ -195,3 +195,8 @@ export const QuantityProducts = styled.div`
     }
     
 `
+
+export const ContentView = styled.div`
+    display: flex;
+    justify-content: center !important;
+`;

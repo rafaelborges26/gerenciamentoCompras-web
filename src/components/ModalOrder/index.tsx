@@ -15,7 +15,7 @@ import formatReal from '../../utils/formatReal';
 import { FiPlusCircle, FiMinusCircle, FiTrash2, FiExternalLink } from 'react-icons/fi';
 
 //Styles
-import { Container, ButtonsOrders, EmptyList, TableContainer, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts } from './styles'
+import { Container, ButtonsOrders, EmptyList, TableContainer, TableCllient, ListProductsSelected, ValueTotal ,EditProducts, QuantityProducts, ContentView } from './styles'
 
 interface formData {
     price_total: number;
@@ -410,9 +410,10 @@ const ModalOrders: React.FC = () => {
                 </>
             
             ) }
-
+        <ContentView>
         <ViewOrderDetailed orderId={orderIdSelected} isOpen={viewOrderDetailed} onClose={() => setViewOrderDetailed(false)} />
-
+        </ContentView>
+        
         </Container>
     )
 }

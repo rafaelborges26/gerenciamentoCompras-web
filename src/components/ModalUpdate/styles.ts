@@ -6,13 +6,13 @@ interface viewProps {
 
 
 export const Container = styled.div<viewProps>`
-    position: fixed;
+    position: absolute;
     top: 35%;
     
     display: ${props => props.isOpen ? 'flex' : 'none' };
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
 
     padding: 20px;
 
@@ -24,6 +24,10 @@ export const Container = styled.div<viewProps>`
 
     svg {
         cursor: pointer;
+    }
+
+    @media (max-width: 660px) {
+        left: 0;
     }
 
 `;
@@ -48,6 +52,9 @@ export const Content = styled.div`
     .ButtonsUpdate {
         display: flex;
         flex-direction: row;
-        gap: 10px;
+        
+        button + button {
+            margin-left: 10px;
+        }
     }
 `

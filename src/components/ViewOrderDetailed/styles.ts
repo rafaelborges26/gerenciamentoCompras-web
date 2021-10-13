@@ -27,6 +27,10 @@ export const Container = styled.div<viewProps>`
         cursor: pointer;
     }
 
+    @media (max-width: 660px) {
+        left: 0;
+    }
+
 `;
 
 export const Table = styled.table`
