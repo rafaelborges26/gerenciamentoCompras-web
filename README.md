@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+# Gerenciamento de Compras
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Purchasing management
+<p align="center">o projeto incentiva o uso desse tempo de descanso com tarefas simples e que ajudam a evitar problemas de visão e problemas corporais, tornando a experiência das tarefas melhores</p>
 
-## Available Scripts
+<h1 align="center">
+    <a href="https://buy-management.web.app/">🔗 Purchasing management</a>
+</h1>
+<p align="center">🚀 Obs: Sem permissão para incluir dados, e-mails desconhecidos com acesso somente de leitura.</p>
 
-In the project directory, you can run:
+<strong>Página inicial</strong>
+<img src="public/github/pageInitial.png" alt="Página inicial" />
 
-### `yarn start`
+<strong>Novo desafio</strong>
+<img src="public/github/newChallenge.png" alt="Novo desafio" />
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<strong>Novo level</strong>
+<img src="public/github/levelup.png" alt="Novo level" />
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<strong>Modal de registro do nome do usuário</strong>
+<br/>
+<img src="public/github/register.png" alt="Tela responsiva" />
 
-### `yarn test`
+<strong>Tela responsiva</strong>
+<br/>
+<img src="public/github/responsive.png" alt="Tela responsiva" />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🛠 Tecnologias
 
-### `yarn build`
+As seguintes ferramentas foram usadas na construção do projeto:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [Firebase](https://firebase.google.com/)
+- [React](https://pt-br.reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ <img style="border-radius: 50%;" src="https://github.com/rafaelborges26.png" width="100px;" alt="Rafael Borges"/>
+ <br />
+ <sub><b>Rafael</b></sub></a>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+Feito por Rafael Borges 👋🏽 Entre em contato!
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[![Linkedin Badge](https://img.shields.io/badge/-Rafael-blue?style=flat-square&logo=Linkedin&logoColor=white&link=)](linkedin.com/in/rafael-bernardino-borges) 
+[![Gmail Badge](https://img.shields.io/badge/-rafael.borges2698@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:rafael.borges2698@gmail.com)](mailto:rafael.borges2698@gmail.com)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
