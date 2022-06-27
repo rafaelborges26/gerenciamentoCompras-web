@@ -1,10 +1,11 @@
 # Gerenciamento de Compras
 
 ## Purchasing management
-
+<p align="center">o projeto se trata de um gerenciador de compras com algumas funcionalidades para auxiliar a loja, com funcionalidades personalizadas para o cliente.</p>
 <h1 align="center">
     <a href="https://buy-management.web.app/">🔗 Purchasing management</a>
 </h1>
+
 <p align="center">🚀 Obs: Sem permissão para incluir dados, e-mails desconhecidos com acesso somente de leitura.</p>
 <br/>
 
