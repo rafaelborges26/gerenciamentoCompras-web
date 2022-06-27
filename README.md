@@ -7,51 +7,48 @@
     <a href="https://buy-management.web.app/">🔗 Purchasing management</a>
 </h1>
 <p align="center">🚀 Obs: Sem permissão para incluir dados, e-mails desconhecidos com acesso somente de leitura.</p>
+<br/>
 
-<strong>Página inicial - Login</strong>
+<p align="left">Um demonstrativo sobre o projeto:</p>
+<br/>
+<strong>Página inicial - Login:</strong>
 <img src="src/assets/github/signin.jpeg" alt="Página inicial - Login" />
 
-<strong>Criação do Pedido</strong>
+<strong>Criação do Pedido:</strong>
 <img src="src/assets/github/order.jpeg" alt="Clientes" />
 
-<strong>Criação do Produto</strong>
+<strong>Criação do Produto:</strong>
 <img src="src/assets/github/product.jpeg" alt="Produtos" />
 
-<strong>Lista do Clientes</strong>
+<strong>Lista do Clientes:</strong>
 <img src="src/assets/github/listClients.jpeg" alt="Lista de Clientes" />
 
-<strong>Atualizar o Produto</strong>
+<strong>Atualizar o Produto:</strong>
 <img src="src/assets/github/updtListClients.jpeg" alt="Atualizar o Produto" />
 
-<strong>Atualizar o Pedido</strong>
+<strong>Atualizar o Pedido:</strong>
 <img src="src/assets/github/updtListOrder.jpeg" alt="Atualizar o Pedido" />
 
-<strong>Tela responsiva</strong>
+<h4>Tela responsiva:</h4>
 <br/>
 
-<strong>Produtos</strong>
-<img src="src/assets/github/productMobile.jpeg" alt="Produtos" />
-<br/>
+<strong>Página Inicial - Login:</strong><br/>
+<img src="src/assets/github/signInMobile.jpeg" alt="Página Inicial - Login" width="400px"/>
 
-<strong>Pedidos</strong>
-<img src="src/assets/github/clientsMobile.jpeg" alt="Pedidos" />
-<br/>
+<strong>Criação de Produtos:</strong><br/>
+<img src="src/assets/github/productMobile.jpeg" alt="Produtos" width="400px" />
 
-<strong>Clientes</strong>
-<img src="src/assets/github/clientsMobile.jpeg" alt="Clientes" />
-<br/>
+<strong>Criação de Pedidos:</strong><br/>
+<img src="src/assets/github/clientsMobile.jpeg" alt="Pedidos" width="400px" />
 
-<strong>Lista de Pedidos</strong>
-<img src="src/assets/github/orderListMobile.jpeg" alt="Lista de Pedidos" />
-<br/>
+<strong>Criação de Clientes:</strong><br/>
+<img src="src/assets/github/clientsMobile.jpeg" alt="Clientes" width="400px" />
 
-<strong>Lista de Pedidos</strong>
-<img src="src/assets/github/signInMobile.jpeg" alt="Página Inicial - Login" />
-<br/>
+<strong>Lista de Pedidos:</strong><br/>
+<img src="src/assets/github/orderListMobile.jpeg" alt="Lista de Pedidos" width="400px"/>
 
-<strong>Lista de Pedidos</strong>
-<img src="src/assets/github/updtOrderListMobile.jpeg" alt="Atualizar os pedidos" />
-
+<strong>Atualizar os pedidos:</strong><br/>
+<img src="src/assets/github/updtOrderListMobile.jpeg" alt="Atualizar os pedidos" width="400px"/>
 
 ### 🛠 Tecnologias
 
