@@ -1,7 +1,6 @@
 # Gerenciamento de Compras
 
 ## Purchasing management
-<p align="center">o projeto incentiva o uso desse tempo de descanso com tarefas simples e que ajudam a evitar problemas de visão e problemas corporais, tornando a experiência das tarefas melhores</p>
 
 <h1 align="center">
     <a href="https://buy-management.web.app/">🔗 Purchasing management</a>
