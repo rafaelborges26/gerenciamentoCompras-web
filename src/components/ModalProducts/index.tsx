@@ -1,6 +1,7 @@
 //Libs - Hooks
 import  React, { FormEvent, useState, useEffect } from 'react';
 import { useProduct } from '../../hooks/useProduct';
+import { useForm } from 'react-hook-form'
 
 //UI - Components - Utils
 import ModalUpdate from '../ModalUpdate';
@@ -17,6 +18,7 @@ import { Container, ButtonsProduct, TableContainer, TableCllient, EmptyList } fr
 
 const ModalProducts: React.FC = () => {
 
+    const { register, handleSubmit, watch } = useForm();
     const { products, createProducts, getProducts, deleteProduct } = useProduct();
 
     const [name, setName] = useState<string>('');
@@ -29,30 +31,31 @@ const ModalProducts: React.FC = () => {
     const [createdProducts, setCreatedProducts] = useState(true)
     const [modalUpdateProduct, setModalUpdateProduct] = useState(false)
 
-
-    const handleCreateUser = async (event: FormEvent) => {
-
-        event.preventDefault()
+    const onSubmit = handleSubmit(async (data) => {
+        
+        //event.preventDefault()
    
         //validations
 
-        if(name.trim() === '' || description.trim() === '' || price.trim() === ''){
-            alert("É Necessário preencher os campos")
-            return;
-        }
+        console.log(data)
+
+
+        //if(name.trim() === '' || description.trim() === '' || price.trim() === ''){
+        //    alert("É Necessário preencher os campos")
+        //    return;
+        //}
 
         //Enviar dados
         
         const created_date = getFormatedDate();
 
-        await createProducts(name, description, Number(price), created_date)
+        //await createProducts(name, description, Number(price), created_date)
 
         setName('');
         setDescription('');
         setPrice('');
 
-        
-       }
+    });
 
        const handleShowListOrCreated = () => {
         setListProducts(!listProducts)
@@ -137,7 +140,7 @@ const ModalProducts: React.FC = () => {
             }
 
             { createdProducts && (
-                <form onSubmit={handleCreateUser}>
+                <form onSubmit={onSubmit}>
                         <Input 
                             type="text"
                             placeholder="Camisa do Santos" 
