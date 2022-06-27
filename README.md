@@ -8,18 +8,11 @@
 </h1>
 <p align="center">🚀 Obs: Sem permissão para incluir dados, e-mails desconhecidos com acesso somente de leitura.</p>
 
-<strong>Página inicial</strong>
-<img src="public/github/pageInitial.png" alt="Página inicial" />
+<strong>Página inicial - Login</strong>
+<img src="assets/github/signin.jpeg" alt="Página inicial - Login" />
 
-<strong>Novo desafio</strong>
-<img src="public/github/newChallenge.png" alt="Novo desafio" />
-
-<strong>Novo level</strong>
-<img src="public/github/levelup.png" alt="Novo level" />
-
-<strong>Modal de registro do nome do usuário</strong>
-<br/>
-<img src="public/github/register.png" alt="Tela responsiva" />
+<strong>Clientes</strong>
+<img src="assets/github/order.jpeg" alt="Clientes" />
 
 <strong>Tela responsiva</strong>
 <br/>
