@@ -9,14 +9,49 @@
 <p align="center">🚀 Obs: Sem permissão para incluir dados, e-mails desconhecidos com acesso somente de leitura.</p>
 
 <strong>Página inicial - Login</strong>
-<img src="assets/github/signin.jpeg" alt="Página inicial - Login" />
+<img src="src/assets/github/signin.jpeg" alt="Página inicial - Login" />
 
-<strong>Clientes</strong>
-<img src="assets/github/order.jpeg" alt="Clientes" />
+<strong>Criação do Pedido</strong>
+<img src="src/assets/github/order.jpeg" alt="Clientes" />
+
+<strong>Criação do Produto</strong>
+<img src="src/assets/github/product.jpeg" alt="Produtos" />
+
+<strong>Lista do Clientes</strong>
+<img src="src/assets/github/listClients.jpeg" alt="Lista de Clientes" />
+
+<strong>Atualizar o Produto</strong>
+<img src="src/assets/github/updtListClients.jpeg" alt="Atualizar o Produto" />
+
+<strong>Atualizar o Pedido</strong>
+<img src="src/assets/github/updtListOrder.jpeg" alt="Atualizar o Pedido" />
 
 <strong>Tela responsiva</strong>
 <br/>
-<img src="public/github/responsive.png" alt="Tela responsiva" />
+
+<strong>Produtos</strong>
+<img src="src/assets/github/productMobile.jpeg" alt="Produtos" />
+<br/>
+
+<strong>Pedidos</strong>
+<img src="src/assets/github/clientsMobile.jpeg" alt="Pedidos" />
+<br/>
+
+<strong>Clientes</strong>
+<img src="src/assets/github/clientsMobile.jpeg" alt="Clientes" />
+<br/>
+
+<strong>Lista de Pedidos</strong>
+<img src="src/assets/github/orderListMobile.jpeg" alt="Lista de Pedidos" />
+<br/>
+
+<strong>Lista de Pedidos</strong>
+<img src="src/assets/github/signInMobile.jpeg" alt="Página Inicial - Login" />
+<br/>
+
+<strong>Lista de Pedidos</strong>
+<img src="src/assets/github/updtOrderListMobile.jpeg" alt="Atualizar os pedidos" />
+
 
 ### 🛠 Tecnologias
 
